@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="index, follow" />
+	<meta name="author" content="Brandon Cash" />
+	<meta name="rating" content="General" />
+	<meta name="description" content="An interactive guide to the periodic table of the elements." />
+	<meta name="keywords" content="" />
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, target-densitydpi=high-dpi">
+	<title>elements</title>
+	<link rel="shortcut icon" href="favicon.png" />
+	<link rel="image_src" href="images/icon_128.png" />
+	<link rel="stylesheet" href="stylesheets/styles.css" type="text/css" media="screen" />
+	<script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+	<script src="scripts/jquery.transit.min.js" type="text/javascript"></script>
+	<script src="scripts/jquery.noclickdelay.js" type="text/javascript"></script>
+	<script src="scripts/iscroll.js" type="text/javascript"></script>
+	<script src="scripts/jscroll.js" type="text/javascript"></script>
+	<script src="scripts/application.js" type="text/javascript"></script>
+	<script src="scripts/elements.js" type="text/javascript"></script>
+	<script src="scripts/table.js" type="text/javascript"></script>
+	<script src="scripts/inspector.js" type="text/javascript"></script>
+	<script src="scripts/bohrmodel.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="application-viewport">
+
+	<section id="table" class="category active">
+		<!-- This is where the elements will end up -->
+		<div id="elements">
+			<!-- Labels for groups -->
+			<div class="group-1 period-0 spot group-label">1</div>
+			<div class="group-2 period-1 spot group-label">2</div>
+			<div class="group-3 period-3 spot group-label">3</div>
+			<div class="group-4 period-3 spot group-label">4</div>
+			<div class="group-5 period-3 spot group-label">5</div>
+			<div class="group-6 period-3 spot group-label">6</div>
+			<div class="group-7 period-3 spot group-label">7</div>
+			<div class="group-8 period-3 spot group-label">8</div>
+			<div class="group-9 period-3 spot group-label">9</div>
+			<div class="group-10 period-3 spot group-label">10</div>
+			<div class="group-11 period-3 spot group-label">11</div>
+			<div class="group-12 period-3 spot group-label">12</div>
+			<div class="group-13 period-1 spot group-label">13</div>
+			<div class="group-14 period-1 spot group-label">14</div>
+			<div class="group-15 period-1 spot group-label">15</div>
+			<div class="group-16 period-1 spot group-label">16</div>
+			<div class="group-17 period-1 spot group-label">17</div>
+			<div class="group-18 period-0 spot group-label">18</div>
+			<!-- Labels for periods -->
+			<div class="group-0 period-1 spot period-label">1</div>
+			<div class="group-0 period-2 spot period-label">2</div>
+			<div class="group-0 period-3 spot period-label">3</div>
+			<div class="group-0 period-4 spot period-label">4</div>
+			<div class="group-0 period-5 spot period-label">5</div>
+			<div class="group-0 period-6 spot period-label">6</div>
+			<div class="group-0 period-7 spot period-label">7</div>
+			<!-- Stuff indicating the lanthanide and actinide breaks -->
+			<div class="group-3 period-6 spot break-label">&bull;</div>
+			<div class="group-3 period-7 spot break-label">&bull;&bull;</div>
+			<div class="group-3 period-9 spot break-label">&bull;</div>
+			<div class="group-3 period-10 spot break-label">&bull;&bull;</div>
+		</div>
+		<!-- Buttons to choose the table mode -->
+		<div id="options">
+			<img src="images/icons/category.png" id="button-category" class="icon active button" />
+			<img src="images/icons/phase.png" id="button-phase" class="icon button" />
+			<img src="images/icons/discovery.png" id="button-discovery" class="icon button" />
+			<br />
+		</div>
+		<!-- Controls for the current table mode -->
+		<div id="table-controls">
+			<!-- Category mode controls -->
+			<div id="controls-category" class="control-box">
+				<div>Elements <span style="color: #7693b1;">by Category</span></div>
+				<div class="key left">
+					<div class="category alkali"></div> <span>Alkali metal</span><br />
+					<div class="category alkaline"></div> <span>Alkaline earth metal</span><br />
+					<div class="category transition"></div> <span>Transition metal</span><br />
+					<div class="category posttransition"></div> <span>Post-transition metal</span><br />
+					<div class="category metalloids"></div> <span>Metalloid</span><br />
+				</div>
+				<div class="key right">
+					<div class="category nonmetals"></div> <span>Nonmetal</span><br />
+					<div class="category halogens"></div> <span>Halogen</span><br />
+					<div class="category noble"></div> <span>Noble gas</span><br />
+					<div class="category lanthanides"></div> <span>Lanthanide</span><br />
+					<div class="category actinides"></div> <span>Actinide</span><br />
+				</div>
+			</div>
+			<!-- Phase mode controls -->
+			<div id="controls-phase" class="control-box">
+				<div>Elements <span style="color: #7693b1;">by State</span></div>
+				<div class="key left">
+					<button id="phase-sub" class="button">&minus;</button>
+					<span id="phase-temp">21</span>
+					<button id="phase-add" class="button">&plus;</button>
+					&deg; C
+				</div>
+				<div class="key right">
+					<div class="state solid"></div> <span>Solid</span><br />
+					<div class="state liquid"></div> <span>Liquid</span><br />
+					<div class="state gas"></div> <span>Gas</span><br />
+					<div class="state unknown"></div> <span>Unknown</span><br />
+				</div>
+			</div>
+			<!-- Discovery mode controls -->
+			<div id="controls-discovery" class="control-box">
+				<div>Elements <span style="color: #7693b1;">by Discovered Year</span></div>
+				<button id="discovery-sub" class="button">&minus;</button>
+				<span id="discovery-year">1800</span>
+				<button id="discovery-add" class="button">&plus;</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- The inspector which shows detailed element information -->
+	<section id="inspector">
+		<div class="toolbar">
+			<div id="navigator">
+				<div id="previous-element" class="element transition">
+					<div class="number">23</div>
+					<div class="symbol">V</div>
+				</div>
+				<div id="current-element" class="element transition">
+					<div class="number">24</div>
+					<div class="symbol">Cr</div>
+				</div>
+				<div id="next-element" class="element transition">
+					<div class="number">25</div>
+					<div class="symbol">Mn</div>
+				</div>
+			</div>
+			<div class="title"></div>
+			<div id="close-inspector" class="icon"><img src="images/icons/close.png" alt="Close" /></div>
+		</div>
+		<div class="menu"></div>
+		<div class="viewport">
+			<div class="track">
+				<div id="general" data-name="General">
+					<div class="align-fix"></div>
+					<div class="content">
+						<span id="num-of-protons" class="fixed large"></span> <span id="label-protons-and-electrons">protons &amp; electrons</span><br />
+						<span id="num-of-neutrons" class="fixed large"></span> neutrons<br />
+						<span id="num-of-electron-shells" class="fixed large"></span> <span id="label-electron-shells">electron shells</span><br /><br />
+						category<br />
+						<span id="category" class="large indent"></span><br /><br />
+						crystal structure<br />
+						<div id="crystal-structure" class="large indent"></div>
+					</div>
+				</div>
+				<div id="physical" data-name="Physical">
+					<div class="align-fix"></div>
+					<div class="content">
+						<span id="state-at-rt" class="large"></span> at room temperature<br />
+						melts at <span id="melting-point" class="large"></span><br />
+						boils at <span id="boiling-point" class="large"></span><br /><br />
+						density<br />
+						<span id="density" class="indent large"></span> g/mL<br /><br />
+						electron configuration<br />
+						<div id="electron-configuration" class="large indent"></div>
+					</div>
+				</div>
+				<div id="atomic" data-name="Atomic">
+					<div class="align-fix"></div>
+					<div class="content">
+						atomic weight<br />
+						<span id="atomic-weight" class="indent large"></span><br />
+						electronegativity (Pauling)<br />
+						<span id="electronegativity" class="indent large"></span><br />
+						atomic radius<br />
+						<span id="atomic-radius" class="indent large"></span><br />
+						covalent radius<br />
+						<span id="covalent-radius" class="indent large"></span><br />
+						ionic radius<br />
+						<span id="ionic-radius" class="indent large"></span><br />
+					</div>
+				</div>
+				<div id="miscellanea" data-name="Miscellanea">
+					<div class="align-fix"></div>
+					<div class="content">
+						year discovered<br />
+						<div id="year-discovered" class="indent large"></div>
+						uses<br />
+						<div id="uses" class="indent large"></div>
+						hydrides<br />
+						<div id="hydrides" class="indent large"></div>
+						oxides<br />
+						<div id="oxides" class="indent large"></div>
+						chlorides<br />
+						<div id="chlorides" class="indent large"></div>
+					</div>
+				</div>
+				<div id="reactions" data-name="Reactions">
+					<div class="align-fix"></div>
+					<div class="content">
+						reaction with air<br />
+						<div id="react-air" class="large indent"></div>
+						reaction with water<br />
+						<div id="react-water" class="large indent"></div>
+						reaction with 6M HCl<br />
+						<div id="react-HCl" class="large indent"></div>
+						reaction with 15M HNO<sub>3</sub><br />
+						<div id="react-HNO3" class="large indent"></div>
+						reaction with 6M NaOH<br />
+						<div id="react-NaOH" class="large indent"></div>
+					</div>
+				</div>
+				<div id="abundance" data-name="Abundance">
+					<div class="align-fix"></div>
+					<div class="content">
+						in Earth's crust<br />
+						<span id="in-earths-crust" class="indent large"></span> mg/kg<br />
+						in seawater<br />
+						<span id="in-seawater" class="indent large"></span> mg/L<br />
+						in humans<br />
+						<span id="in-humans" class="indent large"></span><br />
+						source<br />
+						<div id="source" class="indent large"></div>
+					</div>
+				</div>
+				<div id="picture" data-name="Picture">
+					<div class="align-fix"></div>
+					<div id="photo">
+						<img src="images/elements/chromium.jpg" alt="An image of the element." />
+						<div class="caption">Chromium</div>
+					</div>
+				</div>
+				<div id="bohr-model" data-name="Bohr Model">
+					<div class="align-fix"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- TODO: remove this -->
+	<div id="debug" style="position: absolute; left: 0; top: 0; background-color: rgba(0, 0, 0, 0.5); color: #333;"></div>
+
+</div>
+</body>
+</html>

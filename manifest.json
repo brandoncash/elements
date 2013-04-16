@@ -1,0 +1,16 @@
+{
+	"name": "Elements",
+	"description": "An interactive periodic table of the elements",
+	"version": "1.0.2",
+	"offline_enabled": "true",
+	"homepage_url": "http://experiments.brandoncash.net/elements/",
+	"app": {
+		"launch": {
+			"local_path": "main.html"
+		}
+	},
+	"icons": {
+		"16": "images/icon_16.png",
+		"128": "images/icon_128.png"
+	}
+}

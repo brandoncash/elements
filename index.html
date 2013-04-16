@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Elements</title>
+	<link rel="stylesheet" href="stylesheets/phone.css" type="text/css" media="screen" title="Default" />
+	<script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function switchViewport(width, height)
+		{
+			$('#viewport').width(width).height(height);
+			$('#viewport').attr('src', 'main.html');
+		};
+	</script>
+</head>
+<body>
+
+<div class="align-fix"></div>
+<div style="display: inline-block; vertical-align: middle;">
+	<iframe id="viewport" class="shadowed" src="main.html"></iframe>
+	<div id="navigation">
+		View in: 
+		<span onclick="switchViewport(1280, 720)">1280x720</span>
+		<span onclick="switchViewport(960, 540)">My Phone</span>
+		<span onclick="switchViewport(1136, 640)">iPhone 5</span>
+		<span onclick="switchViewport(960, 640)">iPhone 4</span>
+		<span onclick="switchViewport(480, 320)">iPhone 3</span>
+		<span onclick="$('#viewport').toggleClass('shadowed');">Toggle dropshadow</span>
+	</div>
+	<div>
+		This preview is for WebKit only, like Chrome or Safari!  It is very much under construction and changes will come very rapidly.<br />
+		If you have any ideas, feel free to <a href="mailto:brandoncash@gmail.com">let me know</a>!
+	</div>
+</div>
+
+</body>
+</html>

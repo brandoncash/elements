@@ -1,0 +1,30 @@
+High priority:
+------------------------
+
+Long press / drag should show a mini detailed view
+	- calculate what element is under current X/Y coordinates
+	- different views for each table mode
+Option buttons
+	- Organize into groups/subgroups
+	- Search should go under inspect mode
+	- Add range selectors below phase and discovery mode
+
+Medium priority:
+------------------------
+Make elements always square
+	- keep aspect ratio of table
+	- this might mess with calculating what's under the cursor!
+The "picture" category is broken on iPhone 3
+
+Low priority:
+------------------------
+Bohr model
+	- 3d stuff?
+	- animation with play/pause button
+	- make a unit for size and base everything off that
+Move document.ready stuff to separate spots
+Add Molar Mass calculator
+	- multiply each atom by its mass and add
+	- needs number buttons for subscript
+	- http://itunes.apple.com/us/app/chemcalc/id499955745?mt=8
+Sort elements by name, number, and symbol

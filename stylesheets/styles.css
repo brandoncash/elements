@@ -1,0 +1,46 @@
+﻿@import url("types.css");
+@import url("main.css");
+
+@import url("table.css");
+@import url("inspector.css");
+@import url("settings.css");
+
+body {
+	font-size: 12pt;
+}
+
+@media screen and (min-height: 240px) {
+	body {
+		font-size: 60%;
+	}
+}
+@media screen and (min-height: 320px) {
+	body {
+		font-size: 80%;
+	}
+}
+@media screen and (min-height: 400px) {
+	body {
+		font-size: 100%;
+	}
+}
+@media screen and (min-height: 480px) {
+	body {
+		font-size: 120%;
+	}
+}
+@media screen and (min-height: 520px) {
+	body {
+		font-size: 150%;
+	}
+}
+@media screen and (min-height: 600px) {
+	body {
+		font-size: 175%;
+	}
+}
+@media screen and (min-height: 720px) {
+	body {
+		font-size: 200%;
+	}
+}

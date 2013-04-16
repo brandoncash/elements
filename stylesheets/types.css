@@ -1,0 +1,13 @@
+﻿/* A font by Jos Buivenga (exljbris) -> www.exljbris.com */
+@font-face {
+	font-family: MuseoSlab;
+	src: url(../fonts/MuseoSlab.otf) format("opentype");
+}
+@font-face {
+	font-family: MuseoSans;
+	src: url(../fonts/MuseoSans.otf) format("opentype");
+}
+@font-face {
+	font-family: Daniel;
+	src: url(../fonts/DanielBold.ttf) format("truetype");
+}

@@ -1,0 +1,158 @@
+#inspector {
+}
+
+#inspector .toolbar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 15%;
+	text-align: right;
+	background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+}
+#inspector .toolbar > div {
+	display: inline-block;
+	vertical-align: middle;
+}
+#navigator {
+	width: 30%;
+	text-align: center;
+	padding-top: 0.5em;
+}
+#navigator .element {
+	position: relative;
+	width: 2em;
+	height: 2em;
+}
+#navigator .disappeared {
+	opacity: 0;
+}
+#current-element {
+	font-size: 1.2em;
+}
+#current-element:active {
+	-webkit-transform: none;
+}
+#inspector .title {
+	width: 60%;
+	font-size: 2em;
+	text-transform: lowercase;
+	text-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.75);
+	text-align: left;
+	line-height: 1.5em;
+}
+#inspector .toolbar .icon {
+	width: 5%;
+	padding: 0 1em 0 0;
+	line-height: 1.5em;
+}
+#inspector .toolbar .icon img {
+	height: 100%;
+}
+
+#inspector .menu {
+	position: absolute;
+	right: 70%;
+	bottom: 20%;
+	left: 0;
+	z-index: 10;
+}
+#inspector .menu .tab {
+	margin: 0.3em;
+	padding-right: 1em;
+	font-size: 1.3em;
+	text-align: right;
+	text-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.75);
+	text-transform: lowercase;
+	color: #7693b1;
+	-webkit-transition: -webkit-transform 0.25s ease-in-out;
+	-webkit-backface-visibility: hidden;
+}
+#inspector .menu > div.active,
+#inspector .menu > div:active {
+	color: #c8e2e8;
+	-webkit-transform: scale(1.1);
+	-webkit-transition-delay: 0;
+}
+
+#inspector .viewport {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	bottom: 15%;
+	overflow: hidden;
+	text-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.5);
+	/* FIXME: this mask disappears on mobile */
+	-webkit-mask-image: -webkit-linear-gradient(top,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 1) 10%,
+		rgba(0, 0, 0, 1) 90%,
+		rgba(0, 0, 0, 0.25) 100%);
+}
+#inspector .viewport .track {
+	position: absolute;
+	left: 30%;
+	right: 0;
+}
+#inspector .viewport .track > div {
+	height: 500px;
+}
+#inspector .viewport .track > div .align-fix {
+	display: inline-block;
+	width: 1px;
+	height: 100%;
+	vertical-align: middle;
+}
+#inspector .viewport .track > div .content {
+	display: inline-block;
+	width: 95%;
+	vertical-align: middle;
+	font-size: 0.9em;
+	line-height: 1.2em;
+}
+
+#inspector .fixed {
+	display: inline-block;
+	width: 2em;
+	text-align: right;
+}
+#inspector .indent {
+	margin-left: 5%;
+}
+#inspector .large {
+	font-size: 2em;
+	line-height: 1.2em;
+	white-space: nowrap;
+}
+
+#picture {
+	text-align: center;
+}
+#photo {
+	display: inline-block;
+	padding: 0.5em;
+	background-color: #eee;
+	-webkit-transform: rotate(2deg);
+	-webkit-backface-visibility: hidden;
+	box-shadow: 0 0.1em 0.4em rgba(0, 0, 0, 0.75),
+		0 0.1em 0.1em rgba(0, 0, 0, 0.25);
+	vertical-align: middle;
+}
+#picture img {
+	height: 65%;
+}
+#picture .caption {
+	margin-top: 0.2em;
+	color: #333;
+	font-family: Daniel;
+	font-size: 1.2em;
+	text-shadow: none;
+}
+
+#bohr-model {
+	height: 100%;
+}
+#bohr-model canvas {
+	vertical-align: middle;
+}

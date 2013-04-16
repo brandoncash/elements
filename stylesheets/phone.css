@@ -1,0 +1,42 @@
+﻿html, body {
+	height: 100%;
+}
+body {
+	margin: 0;
+	padding: 0px;
+	line-height: 1.5em;
+	font-size: 14px;
+	font-family: "Lucida Sans", Helvetica, Arial, Sans;
+	background-color: #042029;
+	color: #cff;
+	text-align: center;
+}
+a {
+	color: #cb4b16;
+	text-decoration: none;
+	border-bottom: 1px dotted #cb4b16;
+}
+
+.align-fix {
+	display: inline-block;
+	width: 1px;
+	height: 100%;
+	vertical-align: middle;
+}
+iframe {
+	display: inline-block;
+	overflow: hidden;
+	border: 0;
+	margin-bottom: 20px;
+	width: 960px;
+	height: 540px;
+}
+iframe.shadowed {
+	box-shadow: 0 3px 25px rgba(0, 0, 0, 0.75);
+}
+#navigation span {
+	cursor: pointer;
+}
+#navigation span:not(:first-child):before {
+	content: "\2022  ";
+}

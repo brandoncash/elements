@@ -1,0 +1,513 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"backgr",
+				"background-color"
+			],
+			[
+				"ini",
+				"inline-block"
+			],
+			[
+				"perio",
+				"PeriodicTable"
+			],
+			[
+				"appli",
+				"Application"
+			],
+			[
+				"disco",
+				"discoveryYear"
+			],
+			[
+				"lon",
+				"longPressElement"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "scripts/application.js",
+			"settings":
+			{
+				"buffer_size": 5928,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scripts/table.js",
+			"settings":
+			{
+				"buffer_size": 5794,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "stylesheets/sidebar.css",
+			"settings":
+			{
+				"buffer_size": 2303,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "stylesheets/table.css",
+			"settings":
+			{
+				"buffer_size": 4213,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "stylesheets/main.css",
+			"settings":
+			{
+				"buffer_size": 1472,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 60.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"lorem",
+				"Snippet: Lorem ipsum"
+			],
+			[
+				"Snippet: ",
+				"Snippet: keydown"
+			],
+			[
+				"Snippet: pro",
+				"Snippet: Prototype"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 498.0
+	},
+	"console":
+	{
+		"height": 132.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Program Files/WAMP/www/tumblr/modern/index.html",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/main.html",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/elements.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/to do.txt",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/jquery.fastclick.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/stylesheets/main.css",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/stylesheets/menu.css",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/menu.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/iscroll.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/jScroll.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/jquery.scrollview.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/index.html",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/stylesheets/table.css",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/stylesheets/menu",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/inspector.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/stylesheets/types.css",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/stylesheets/styles.css",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/User/Tag Package.sublime-settings",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Tag/Tag Package.sublime-settings",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/stylesheets/phone.css",
+		"/C/Program Files/WAMP/www/experiments/bonsai/stylesheets/styles.css",
+		"/C/Program Files/WAMP/www/experiments/bonsai/index.html",
+		"/C/Program Files/WAMP/www/experiments/bonsai/scripts/movie.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/application.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/table.js",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/stylesheets/inspector.css",
+		"/C/Program Files/WAMP/www/experiments/elements/data/convert.php",
+		"/C/Program Files/WAMP/www/experiments/tooltips-with-html5-and-css.html",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/scripts/bohrmodel.js",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/User/highlight_code_remarks.py",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/HighlightWords/README.md",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Theme - Default/Default.sublime-theme",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Theme - Default/Default.sublime-theme.bak",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Theme - Default/Default.sublime-theme.bak.json",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/DocBlockr/Base File.sublime-settings",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Git/Git.sublime-settings",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Color Scheme - Default/Solarized (Dark).tmTheme",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/BracketHighlighter/BracketHighlighter.sublime-settings",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/Default/Preferences (Windows).sublime-settings",
+		"/C/Program Files/WAMP/www/experiments/elements-mobile/elements.sublime-project"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"#eleme",
+			"lanthan",
+			"phase",
+			"icon",
+			"settings",
+			"wheel",
+			"toggl",
+			"start",
+			"touch",
+			"SIDEB",
+			"close",
+			"hash",
+			"phase",
+			"'});",
+			"'});\n",
+			"button",
+			"tab",
+			"brack",
+			"bracket"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "scripts/application.js",
+					"settings":
+					{
+						"buffer_size": 5928,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1887,
+								1887
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 987.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "scripts/table.js",
+					"settings":
+					{
+						"buffer_size": 5794,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3559,
+								3559
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2390.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "stylesheets/sidebar.css",
+					"settings":
+					{
+						"buffer_size": 2303,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								817,
+								817
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "stylesheets/table.css",
+					"settings":
+					{
+						"buffer_size": 4213,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								336,
+								336
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 68.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "stylesheets/main.css",
+					"settings":
+					{
+						"buffer_size": 1472,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								218,
+								218
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"elements.j",
+				"scripts/elements.js"
+			],
+			[
+				"todo",
+				"to do.txt"
+			],
+			[
+				"main.cs",
+				"stylesheets/main.css"
+			],
+			[
+				"table.cs",
+				"stylesheets/table.css"
+			],
+			[
+				"fastcli",
+				"scripts/jquery.fastclick.js"
+			],
+			[
+				"menu.cs",
+				"stylesheets/menu.css"
+			],
+			[
+				"menu.s",
+				"scripts/menu.js"
+			],
+			[
+				"iscr",
+				"scripts/iscroll.js"
+			],
+			[
+				"iscrol",
+				"scripts/iscroll.js"
+			],
+			[
+				"menu.j",
+				"scripts/menu.js"
+			],
+			[
+				"menu.js",
+				"scripts/menu.js"
+			],
+			[
+				"main.c",
+				"stylesheets/main.css"
+			],
+			[
+				"types.cs",
+				"stylesheets/types.css"
+			],
+			[
+				"styles.css",
+				"stylesheets/styles.css"
+			],
+			[
+				"inde",
+				"index.html"
+			],
+			[
+				"phon",
+				"stylesheets/phone.css"
+			],
+			[
+				"table.js",
+				"scripts/table.js"
+			],
+			[
+				"boh",
+				"scripts/bohrmodel.js"
+			],
+			[
+				"install",
+				"/C/Documents and Settings/Brandon/Application Data/Sublime Text 2/Packages/HighlightWords/README.md"
+			],
+			[
+				"table.c",
+				"stylesheets/table.css"
+			],
+			[
+				"table.",
+				"scripts/table.js"
+			],
+			[
+				"table.j",
+				"scripts/table.js"
+			],
+			[
+				"ma",
+				"main.html"
+			],
+			[
+				"tab",
+				"scripts/table.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 230.0,
+	"status_bar_visible": true
+}
