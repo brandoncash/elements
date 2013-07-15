@@ -1,36 +1,54 @@
-var Application = (function ($)
-{
-	var app = {};
+var Application = {
+	currentView: 'loading',
+	fastLoad: true,
 
-	app.currentView = 'none';
-
-	app.init = function()
-	{
-		$(window).bind('hashchange', function()
-		{ // Updated the #hash in the URL
-			var hash = window.location.hash.substring(1);
-			
-			if (hash == '')
-			{ // Main screen
-				Application.switchView('table');
-			}
-
-			if (hash >= 1 && hash <= 118)
-			{ // An element number
-				Inspector.loadElement(parseInt(hash, 10));
-				Application.switchView('inspector');
-				BohrModel.load(periodicElements[parseInt(hash, 10)]);
-			}
-		});
+	init: function()
+	{ // Set up the app
+		$(window).bind('hashchange', this.hashChange);
 		
-		PeriodicTable.init();
+		TemperatureGraph.init();
+		DiscoveryGraph.init();
+		Table.init();
 		Inspector.init();
-		
-		app.switchView('table');
-	};
 
-	app.switchView = function(newView)
+		if (!this.fastLoad)
+		{
+			$('#loading-title').transition({opacity: 1}, 3000, 'in-out');
+			var loadingDone = setTimeout(this.doneLoading, 3000);
+		}
+		else
+			this.doneLoading();
+	},
+
+	doneLoading: function()
 	{
+		//Application.switchView('table');
+		//Table.changeView('discovery');
+	
+		$('#loading').transition({opacity: 0}, 500, 'in-out');
+		$('#table').transition({x: '0%', scale: 0}, 0)
+			.transition({scale: 1}, 500);
+		Application.currentView = 'table';
+	},
+
+	hashChange: function()
+	{ // Updated the #hash in the URL
+		var hash = window.location.hash.substring(1);
+		
+		if (hash == '')
+		{ // Main table
+			Application.switchView('table');
+		}
+
+		if (hash >= 1 && hash <= 118)
+		{ // An element number
+			Application.switchView('inspector');
+			Inspector.loadElement(parseInt(hash, 10));
+		}
+	},
+
+	switchView: function(newView)
+	{ // Change the main application view
 		if (newView == this.currentView)
 			return;
 		
@@ -42,16 +60,12 @@ var Application = (function ($)
 		// Move the new view in
 		$('#' + newView).stop().transition({
 			x: '0%'
-		}, 500, 'in-out', function()
-		{ // When it is fully in view
-			$(this).addClass('active');
-		});
+		}, 500, 'in-out');
 		
 		this.currentView = newView;
-	};
+	}
 
-	return app;
-}(jQuery));
+};
 
 $(document).ready(function()
 {

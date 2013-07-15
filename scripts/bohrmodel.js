@@ -2,19 +2,16 @@ var BohrModel = {
 	electronOrbits: '2,8,13,1',
 	numOfElectronShells: 4,
 	electrons: Array(2, 8, 13, 1),
-	width: 500,
-	height: 500,
-	centerX: 250,
-	centerY: 250,
 	
-	init: function()
+	createCanvas: function()
 	{
-		this.width = $('#inspector #bohr-model').width() * 0.9;
-		this.height = $('#inspector #bohr-model').height() * 0.8;
+		this.width = $('#bohr-model').width() * 0.9;
+		this.height = $('#bohr-model').height() * 0.8;
 		
 		this.centerX = this.width / 2;
 		this.centerY = this.height / 2;
 		this.distanceBetweenShells = ((this.height / 2) - (7 * 2) - 5) / 7;
+		
 		this.canvas = $('<canvas />');
 		this.canvas.attr('width', this.width);
 		this.canvas.attr('height', this.height);
@@ -24,7 +21,7 @@ var BohrModel = {
 	load: function(whichElement)
 	{
 		if (!this.canvas)
-			this.init();
+			this.createCanvas();
 		this.electrons = whichElement.electronOrbits.split(',');
 		this.numOfElectronShells = this.electrons.length;
 		this.draw();

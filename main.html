@@ -13,6 +13,7 @@
 	<link rel="shortcut icon" href="favicon.png" />
 	<link rel="image_src" href="images/icon_128.png" />
 	<link rel="stylesheet" href="stylesheets/styles.css" type="text/css" media="screen" />
+	<!--<script src="phonegap.js"></script>-->
 	<script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
 	<script src="scripts/jquery.transit.min.js" type="text/javascript"></script>
 	<script src="scripts/jquery.noclickdelay.js" type="text/javascript"></script>
@@ -23,50 +24,58 @@
 	<script src="scripts/table.js" type="text/javascript"></script>
 	<script src="scripts/inspector.js" type="text/javascript"></script>
 	<script src="scripts/bohrmodel.js" type="text/javascript"></script>
+	<script src="scripts/temperature-graph.js" type="text/javascript"></script>
+	<script src="scripts/discovery-graph.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="application-viewport">
 
-	<section id="table" class="category active">
+	<section id="loading">
+		<div id="loading-title">elements</div>
+	</section>
+
+	<section id="table" class="category">
 		<!-- This is where the elements will end up -->
 		<div id="elements">
-			<!-- Labels for groups -->
-			<div class="group-1 period-0 spot group-label">1</div>
-			<div class="group-2 period-1 spot group-label">2</div>
-			<div class="group-3 period-3 spot group-label">3</div>
-			<div class="group-4 period-3 spot group-label">4</div>
-			<div class="group-5 period-3 spot group-label">5</div>
-			<div class="group-6 period-3 spot group-label">6</div>
-			<div class="group-7 period-3 spot group-label">7</div>
-			<div class="group-8 period-3 spot group-label">8</div>
-			<div class="group-9 period-3 spot group-label">9</div>
-			<div class="group-10 period-3 spot group-label">10</div>
-			<div class="group-11 period-3 spot group-label">11</div>
-			<div class="group-12 period-3 spot group-label">12</div>
-			<div class="group-13 period-1 spot group-label">13</div>
-			<div class="group-14 period-1 spot group-label">14</div>
-			<div class="group-15 period-1 spot group-label">15</div>
-			<div class="group-16 period-1 spot group-label">16</div>
-			<div class="group-17 period-1 spot group-label">17</div>
-			<div class="group-18 period-0 spot group-label">18</div>
-			<!-- Labels for periods -->
-			<div class="group-0 period-1 spot period-label">1</div>
-			<div class="group-0 period-2 spot period-label">2</div>
-			<div class="group-0 period-3 spot period-label">3</div>
-			<div class="group-0 period-4 spot period-label">4</div>
-			<div class="group-0 period-5 spot period-label">5</div>
-			<div class="group-0 period-6 spot period-label">6</div>
-			<div class="group-0 period-7 spot period-label">7</div>
-			<!-- Stuff indicating the lanthanide and actinide breaks -->
-			<div class="group-3 period-6 spot break-label">&bull;</div>
-			<div class="group-3 period-7 spot break-label">&bull;&bull;</div>
-			<div class="group-3 period-9 spot break-label">&bull;</div>
-			<div class="group-3 period-10 spot break-label">&bull;&bull;</div>
+			<div id="labels">
+				<!-- Labels for groups -->
+				<div class="group-1 period-0 spot group-label">1</div>
+				<div class="group-2 period-1 spot group-label">2</div>
+				<div class="group-3 period-3 spot group-label">3</div>
+				<div class="group-4 period-3 spot group-label">4</div>
+				<div class="group-5 period-3 spot group-label">5</div>
+				<div class="group-6 period-3 spot group-label">6</div>
+				<div class="group-7 period-3 spot group-label">7</div>
+				<div class="group-8 period-3 spot group-label">8</div>
+				<div class="group-9 period-3 spot group-label">9</div>
+				<div class="group-10 period-3 spot group-label">10</div>
+				<div class="group-11 period-3 spot group-label">11</div>
+				<div class="group-12 period-3 spot group-label">12</div>
+				<div class="group-13 period-1 spot group-label">13</div>
+				<div class="group-14 period-1 spot group-label">14</div>
+				<div class="group-15 period-1 spot group-label">15</div>
+				<div class="group-16 period-1 spot group-label">16</div>
+				<div class="group-17 period-1 spot group-label">17</div>
+				<div class="group-18 period-0 spot group-label">18</div>
+				<!-- Labels for periods -->
+				<div class="group-0 period-1 spot period-label">1</div>
+				<div class="group-0 period-2 spot period-label">2</div>
+				<div class="group-0 period-3 spot period-label">3</div>
+				<div class="group-0 period-4 spot period-label">4</div>
+				<div class="group-0 period-5 spot period-label">5</div>
+				<div class="group-0 period-6 spot period-label">6</div>
+				<div class="group-0 period-7 spot period-label">7</div>
+				<!-- Symbols indicating the lanthanide and actinide breaks -->
+				<div class="group-3 period-6 spot break-label">&bull;</div>
+				<div class="group-3 period-7 spot break-label">&bull;&bull;</div>
+				<div class="group-3 period-9 spot break-label">&bull;</div>
+				<div class="group-3 period-10 spot break-label">&bull;&bull;</div>
+			</div>
 		</div>
 		<!-- Buttons to choose the table mode -->
 		<div id="options">
 			<img src="images/icons/category.png" id="button-category" class="icon active button" />
-			<img src="images/icons/phase.png" id="button-phase" class="icon button" />
+			<img src="images/icons/temperature.png" id="button-temperature" class="icon button" />
 			<img src="images/icons/discovery.png" id="button-discovery" class="icon button" />
 			<br />
 		</div>
@@ -74,7 +83,7 @@
 		<div id="table-controls">
 			<!-- Category mode controls -->
 			<div id="controls-category" class="control-box">
-				<div>Elements <span style="color: #7693b1;">by Category</span></div>
+				<div class="title">Elements <span class="subsection">by Category</span></div>
 				<div class="key left">
 					<div class="category alkali"></div> <span>Alkali metal</span><br />
 					<div class="category alkaline"></div> <span>Alkaline earth metal</span><br />
@@ -90,28 +99,39 @@
 					<div class="category actinides"></div> <span>Actinide</span><br />
 				</div>
 			</div>
-			<!-- Phase mode controls -->
-			<div id="controls-phase" class="control-box">
-				<div>Elements <span style="color: #7693b1;">by State</span></div>
-				<div class="key left">
-					<button id="phase-sub" class="button">&minus;</button>
-					<span id="phase-temp">21</span>
-					<button id="phase-add" class="button">&plus;</button>
-					&deg; C
-				</div>
-				<div class="key right">
+			<!-- Temperature mode controls -->
+			<div id="controls-temperature" class="control-box">
+				<div class="title">Elements <span class="subsection">by Temperature</span></div>
+				<div class="key">
 					<div class="state solid"></div> <span>Solid</span><br />
 					<div class="state liquid"></div> <span>Liquid</span><br />
 					<div class="state gas"></div> <span>Gas</span><br />
 					<div class="state unknown"></div> <span>Unknown</span><br />
 				</div>
+				<div class="selector">
+					<div class="button" id="temperature-sub-more">&minus; &minus;</div>
+					<div class="button" id="temperature-sub">&minus;</div>
+					<div id="temperature-display">20 <sup>&deg; C</sup></div>
+					<div class="button" id="temperature-add">&plus;</div>
+					<div class="button" id="temperature-add-more">&plus; &plus;</div>
+				</div>
+				<div id="temperature-graph"></div>
 			</div>
 			<!-- Discovery mode controls -->
 			<div id="controls-discovery" class="control-box">
-				<div>Elements <span style="color: #7693b1;">by Discovered Year</span></div>
-				<button id="discovery-sub" class="button">&minus;</button>
-				<span id="discovery-year">1800</span>
-				<button id="discovery-add" class="button">&plus;</button>
+				<div class="title">Elements <span class="subsection">by Discovered Year</span></div>
+				<div id="new-elements">
+					<div id="new-elements-number">0</div>
+					<div id="new-elements-label">new elements discovered</div>
+				</div>
+				<div class="selector">
+					<div class="button" id="discovery-sub-more">&minus; &minus;</div>
+					<div class="button" id="discovery-sub">&minus;</div>
+					<div id="discovery-year">1800</div>
+					<div class="button" id="discovery-add">&plus;</div>
+					<div class="button" id="discovery-add-more">&plus; &plus;</div>
+				</div>
+				<div id="discovery-graph"></div>
 			</div>
 		</div>
 	</section>
@@ -223,9 +243,9 @@
 				</div>
 				<div id="picture" data-name="Picture">
 					<div class="align-fix"></div>
-					<div id="photo">
-						<img src="images/elements/chromium.jpg" alt="An image of the element." />
-						<div class="caption">Chromium</div>
+					<div id="picture-frame">
+						<img src="images/elements/chromium.jpg" alt="An image of the element." id="picture-img" />
+						<div id="picture-caption">Chromium</div>
 					</div>
 				</div>
 				<div id="bohr-model" data-name="Bohr Model">
@@ -234,9 +254,6 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- TODO: remove this -->
-	<div id="debug" style="position: absolute; left: 0; top: 0; background-color: rgba(0, 0, 0, 0.5); color: #333;"></div>
 
 </div>
 </body>

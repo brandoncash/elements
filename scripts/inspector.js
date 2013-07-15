@@ -1,8 +1,6 @@
-var Inspector = (function ($)
-{
-	var inspector = {};
+var Inspector = {
 
-	inspector.init = function()
+	init: function()
 	{
 		// Adjust the viewport height to match screen space
 		$('#inspector .viewport .track > div').height($('#inspector .viewport').height());
@@ -44,14 +42,13 @@ var Inspector = (function ($)
 		});
 
 		// Pressing the previous/next element buttons
-		$('#previous-element').click(function() { window.location.hash = $(this).attr('data-number'); });
-		$('#next-element').click(function() { window.location.hash = $(this).attr('data-number'); });
+		$('#previous-element, #next-element').click(function() { window.location.hash = $(this).attr('data-number'); });
 
 		// Pressing the close button
 		$('#close-inspector').click(function() { window.location.hash = ''; });
-	};
+	},
 
-	inspector.loadElement = function(elementNumber)
+	loadElement: function(elementNumber)
 	{
 		var element = periodicElements[elementNumber];
 		
@@ -131,7 +128,10 @@ var Inspector = (function ($)
 		$('#ionic-radius').text(element.ionicRadius);
 		
 		// Miscellanea
-		$('#year-discovered').text(element.yearDiscovered);
+		if (element.yearDiscovered > 0)
+			$('#year-discovered').text(element.yearDiscovered);
+		else
+			$('#year-discovered').html((-1 * element.yearDiscovered) + ' BC');
 		$('#uses').text(element.uses);
 		$('#hydrides').html(element.hydrides);
 		$('#oxides').html(element.oxides);
@@ -154,17 +154,17 @@ var Inspector = (function ($)
 		if (elementNumber <= 103)
 		{ // An image is available
 			// FIXME: afterloading this would be better - it seems to slow it down quite a bit!
-			$('#picture img').attr('src', 'images/elements/' + element.fullName.toLowerCase() + '.jpg');
+			$('#picture-img').attr('src', 'images/elements/' + element.fullName.toLowerCase() + '.jpg');
 		}
 		else
 		{ // No image available
-			$('#picture img').attr('src', 'images/elements/transactinoid.png');
+			$('#picture-img').attr('src', 'images/elements/transactinoid.png');
 		}
-		$('#picture .caption').text(element.fullName);
+		$('#picture-caption').text(element.fullName);
+		var randRotate = Math.random() * 6 - 3;
+		$('#picture').css('transform', 'rotate(' + randRotate + 'deg)');
 		
 		// Bohr model
-		//BohrModel.load(element);
-	};
-
-	return inspector;
-}(jQuery));
+		BohrModel.load(element);
+	}
+}

@@ -10,23 +10,67 @@
 
 #table-controls {
 	position: absolute;
-	left: 18%;
+	left: 16%;
 	top: 3%;
-	width: 45%;
-	height: 27%;
+	width: 48.5%;
+	height: 33%;
 }
 .control-box {
-	display: none;
+}
+.control-box .title {
+}
+.control-box .subsection {
+	color: #7693b1;
 }
 #controls-category {
 	display: block;
 }
 
-#phase-temp,
+.selector {
+	position: absolute;
+	bottom: 3.8em;
+	right: 0;
+	height: 2em;
+}
+.selector .button {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 0.5em;
+	line-height: 2em;
+	padding: 0 0.5em;
+}
+#temperature-display,
 #discovery-year {
 	display: inline-block;
-	width: 3em;
+	width: 4em;
 	text-align: center;
+	vertical-align: middle;
+}
+#new-elements {
+	margin-top: 1.5em;
+}
+#new-elements-number {
+	display: inline-block;
+	font-size: 2.5em;
+	line-height: 1em;
+	width: 1.7em;
+	padding-right: 0.1em;
+	text-align: right;
+	vertical-align: middle;
+}
+#new-elements-label {
+	display: inline-block;
+	font-size: 0.8em;
+	line-height: 1.2em;
+	vertical-align: middle;
+	width: 8em;
+}
+
+#temperature-graph, #discovery-graph {
+	position: absolute;
+	bottom: 0%;
+	width: 100%;
+	height: 3.5em;
 }
 
 #elements {
@@ -45,8 +89,11 @@
 	line-height: 2.2em;
 }
 
-.group-label, .period-label, .break-label {
-	text-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.5);
+#labels {
+	opacity: 1;
+}
+#labels.hidden {
+	opacity: 0;
 }
 .group-label {
 	line-height: 3em;
@@ -206,13 +253,14 @@
 .category .element[data-category='noble'],
 .key .category.noble,
 .key .state.gas,
-.phase .element[data-phase='gas'],
+.temperature .element[data-phase='gas'],
 #navigator .noble {
 	background-color: #6699cc;
 }
 .category .element[data-category='halogens'],
 .key .category.halogens,
-#navigator .halogens {
+#navigator .halogens,
+.discovery .element[data-discovered='true'].new {
 	background-color: #99cc00;
 }
 .category .element[data-category='metalloids'],
@@ -223,7 +271,7 @@
 .category .element[data-category='posttransition'],
 .key .category.posttransition,
 .key .state.liquid,
-.phase .element[data-phase='liquid'],
+.temperature .element[data-phase='liquid'],
 .discovery .element[data-discovered='true'],
 #navigator .posttransition {
 	background-color: #0066cc;
@@ -231,13 +279,13 @@
 .category .element[data-category='transition'],
 .key .category.transition,
 .key .state.solid,
-.phase .element[data-phase='solid'],
+.temperature .element[data-phase='solid'],
 #navigator .transition {
 	background-color: #8000dd;
 }
 .category .element[data-category='unknown'],
 .key .unknown,
-.phase .element[data-phase='unknown'],
+.temperature .element[data-phase='unknown'],
 .discovery .element[data-discovered='false'],
 #navigator .unknown {
 	background-color: #888888;
@@ -257,12 +305,13 @@
 	display: inline-block;
 	vertical-align: top;
 	line-height: 0.8em;
+	padding-left: 3%;
 }
 .key.left {
 	width: 60%;
 }
 .key.right {
-	width: 35%;
+	width: 30%;
 }
 .key .category, .key .state {
 	display: inline-block;
@@ -278,4 +327,8 @@
 .key span {
 	font-size: 0.7em;
 	vertical-align: middle;
+}
+.key .large {
+	font-size: 2em;
+	line-height: 1.2em;
 }

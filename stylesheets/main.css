@@ -1,4 +1,4 @@
-﻿html {
+html {
 	height: 100%;
 	font-size: 12pt;
 }
@@ -8,7 +8,6 @@ body {
 	padding: 0;
 	line-height: 1.5em;
 	font-family: MuseoSans, Helvetica, Arial, Sans;
-	/*background-color: #2453cb;*/
 	background-color: #29313d;
 	background-image: -webkit-radial-gradient(50% 50%, closest-corner,
 		rgba(0, 0, 0, 0) 25%,
@@ -20,7 +19,7 @@ body {
 }
 * {
 	cursor: default;
-	-webkit-tap-highlight-color: transparent;
+	-webkit-highlight-color: transparent;
 }
 
 sup,
@@ -43,6 +42,10 @@ sub {
 	overflow: hidden;
 	-webkit-transform: translateZ(0);
 }
+#application-viewport.fix-ratio {
+	top: 5%;
+	bottom: 5%;
+}
 
 section {
 	position: absolute;
@@ -54,8 +57,7 @@ section {
 	-webkit-transform: translate3d(-100%, 0, 0);
 	-webkit-user-select: none;
 	cursor: default;
-}
-section.active {
+	text-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.5);
 }
 
 /* The iScroll scrollbars */

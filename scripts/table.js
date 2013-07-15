@@ -1,30 +1,36 @@
-var PeriodicTable = (function ($)
-{
-	var pt = {};
+var Table = {
+	currentTemp: 20,
+	currentYear: 1800,
 
-	pt.phaseTemp = 21;
-	pt.discoveryYear = 1800;
-
-	pt.init = function()
+	init: function()
 	{
 		for (var i = 1; i <= 118; i++)
 		{ // Loop through the elements and add them to the page
 			this.addElement(periodicElements[i]);
 		}
 
-		$('#button-category').click(function() { pt.changeView('category'); });
-		$('#button-phase').click(function() { pt.changeView('phase'); });
-		$('#button-discovery').click(function() { pt.changeView('discovery'); });
+		// Change the table view
+		$('#button-category').click(function() { Table.changeView('category'); });
+		$('#button-temperature').click(function() { Table.changeView('temperature'); });
+		$('#button-discovery').click(function() { Table.changeView('discovery'); });
 
-		// Increase/decrease temerature of the table by 20 degrees Celcius
-		$('#phase-sub').click(function() { pt.changePhaseTemp(pt.phaseTemp - 20); });
-		$('#phase-add').click(function() { pt.changePhaseTemp(pt.phaseTemp + 20); });
-		// Add/remove 10 years from discovered year
-		$('#discovery-sub').click(function() { pt.changeDiscoveryYear(pt.discoveryYear - 10); });
-		$('#discovery-add').click(function() { pt.changeDiscoveryYear(pt.discoveryYear + 10); });
-	};
+		// Increase/decrease temerature of the table
+		$('#temperature-sub').click(function() { Table.changeTemp(Table.currentTemp - 10); });
+		$('#temperature-sub-more').click(function() { Table.changeTemp(Table.currentTemp - 100); });
+		$('#temperature-add').click(function() { Table.changeTemp(Table.currentTemp + 10); });
+		$('#temperature-add-more').click(function() { Table.changeTemp(Table.currentTemp + 100); });
+		
+		// Add/remove years from discovered year
+		$('#discovery-sub').click(function() { Table.changeDiscoveryYear(Table.currentYear - 1); });
+		$('#discovery-sub-more').click(function() { Table.changeDiscoveryYear(Table.currentYear - 10); });
+		$('#discovery-add').click(function() { Table.changeDiscoveryYear(Table.currentYear + 1); });
+		$('#discovery-add-more').click(function() { Table.changeDiscoveryYear(Table.currentYear + 10); });
 
-	pt.addElement = function(element)
+		$('.control-box').css({display: 'none'}); // Hide the control boxes
+		$('#controls-category').css({display: 'block'}); // Show the categories control box
+	},
+
+	addElement: function(element)
 	{
 		var container = $('<div>');
 		
@@ -39,7 +45,7 @@ var PeriodicTable = (function ($)
 		if (stateAtRT == 's') stateAtRT = 'solid';
 		if (stateAtRT == 'g') stateAtRT = 'gas';
 		if (stateAtRT == 'l') stateAtRT = 'liquid';
-		if (stateAtRT == '' || stateAtRT == 'u') stateAtRT = 'unknown';
+		if (stateAtRT == 'u') stateAtRT = 'unknown';
 		container.attr('data-phase', stateAtRT);
 		container.attr('data-category', element.category);
 		container.attr('data-number', element.atomicNumber);
@@ -58,7 +64,7 @@ var PeriodicTable = (function ($)
 		container.bind('touchend mouseup', function()
 		{
 			// TODO: test for long press
-			PeriodicTable.clickElement($(this).attr('data-number'));
+			Table.clickElement($(this).attr('data-number'));
 			$(this).removeClass('pushed');
 		});
 		
@@ -74,7 +80,7 @@ var PeriodicTable = (function ($)
 				if (!stillHolding)
 					return;
 					
-				PeriodicTable.longPressElement(element.atomicNumber);
+				Table.longPressElement(element.atomicNumber);
 			}, 750);
 		};
 		var stopSelection = function()
@@ -89,73 +95,102 @@ var PeriodicTable = (function ($)
 				
 			hasMoved = true;
 			longPressTimer = null;
-			PeriodicTable.dragElement(element.atomicNumber);
+			Table.dragElement(element.atomicNumber);
 		};
 		container.mousedown(startSelection);
 		container.mouseup(stopSelection);
 		container.mousemove(moveSelection);*/
 		
 		$('#elements').append(container);
-	};
+	},
 
-	pt.clickElement = function(elementNumber)
+	clickElement: function(elementNumber)
 	{
 		window.location.hash = elementNumber;
-	};
+	},
 
-	pt.changeView = function(newView)
+	changeView: function(newView)
 	{
-		$('#table').attr('class', 'active ' + newView);
+		$('#table').attr('class', newView);
 
 		$('#options img').removeClass('active'); // Shrink the old view button
 		$('#button-' + newView).addClass('active'); // Embiggen the new view button
 
 		$('.control-box').css({display: 'none'}); // Hide the old control box
 		$('#controls-' + newView).css({display: 'block'}); // Show the new one
-	};
 
-	pt.changePhaseTemp = function(newTemperature)
+		switch(newView)
+		{
+			case 'category':
+				$('#labels').removeClass('hidden');
+				break;
+			case 'temperature':
+				TemperatureGraph.draw();
+				$('#labels').addClass('hidden');
+				break;
+			case 'discovery':
+				DiscoveryGraph.draw();
+				$('#labels').addClass('hidden');
+				break;
+		}
+	},
+
+	changeTemp: function(newTemperature)
 	{
-		// TODO: determine a good step value for phase temps
-		//  - lowest: 	H -272 C
-		//  - highest: 	W  5660 (but also lots of unknowns)
-		
 		// FIXME: some elements have known melting point but unknown boiling point (96 Curium)
 		//  - they show up as 'unknown'
-		//  
-		pt.phaseTemp = newTemperature;
+		
+		if (newTemperature < TemperatureGraph.startTemp)
+			newTemperature = TemperatureGraph.startTemp;
+		if (newTemperature > TemperatureGraph.endTemp)
+			newTemperature = TemperatureGraph.endTemp;
+		Table.currentTemp = newTemperature;
 
 		for (var elemNumber = 1; elemNumber <= 104; elemNumber++)
 		{ // Loop through only the first 104 elements, since the rest are unknown
 			var phaseState = 'unknown';
 			var meltingPoint = periodicElements[elemNumber].meltingPoint;
 			var boilingPoint = periodicElements[elemNumber].boilingPoint;
-			if (pt.phaseTemp <= meltingPoint)
+			if (Table.currentTemp <= meltingPoint)
 				phaseState = 'solid';
-			if ((pt.phaseTemp > meltingPoint) && (pt.phaseTemp < boilingPoint))
+			if ((Table.currentTemp > meltingPoint) && (Table.currentTemp < boilingPoint))
 				phaseState = 'liquid';
-			if (pt.phaseTemp >= boilingPoint)
+			if (Table.currentTemp >= boilingPoint)
 				phaseState = 'gas';
 			$('#element-' + elemNumber).attr('data-phase', phaseState);
 		}
-		$('#phase-temp').text(pt.phaseTemp);
-	};
+		$('#temperature-display').html(Table.currentTemp + ' <sup>&deg; C</sup>');
+		TemperatureGraph.draw();
+	},
 
-	pt.changeDiscoveryYear = function(newYear)
+	changeDiscoveryYear: function(newYear)
 	{
-		// First discovery: P	1669
-		// Last discovery: 	Uuo	2002
-		pt.discoveryYear = newYear;
+		if (newYear < DiscoveryGraph.firstYear)
+			newYear = DiscoveryGraph.firstYear;
+		if (newYear > DiscoveryGraph.lastYear)
+			newYear = DiscoveryGraph.lastYear;
+		Table.currentYear = newYear;
 
 		for (var elemNumber = 1; elemNumber <= 118; elemNumber++)
 		{
-			var discovered = 'false';
-			if (periodicElements[elemNumber].yearDiscovered < pt.discoveryYear)
-				discovered = 'true'
+			var discovered = false;
+			if (periodicElements[elemNumber].yearDiscovered <= Table.currentYear)
+				discovered = true;
 			$('#element-' + elemNumber).attr('data-discovered', discovered);
-		}
-		$('#discovery-year').text(pt.discoveryYear);
-	};
 
-	return pt;
-}(jQuery));
+			if (periodicElements[elemNumber].yearDiscovered == Table.currentYear)
+				$('#element-' + elemNumber).addClass('new');
+			else
+				$('#element-' + elemNumber).removeClass('new');
+		}
+		var newElementsDiscovered = DiscoveryGraph.newDiscovered[Table.currentYear];
+		$('#new-elements-number').text(newElementsDiscovered);
+		if ((newElementsDiscovered == 0) || (newElementsDiscovered > 1))
+			$('#new-elements-label').text('new elements discovered');
+		else
+			$('#new-elements-label').text('new element discovered');
+
+		$('#discovery-year').text(Table.currentYear);
+		DiscoveryGraph.draw();
+	}
+};
