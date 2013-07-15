@@ -1,0 +1,9 @@
+#loading {
+	-webkit-transform: translate3d(0, 0, 0);
+	text-align: center;
+}
+#loading-title {
+	margin-top: 2em;
+	font-size: 3em;
+	opacity: 0;
+}
