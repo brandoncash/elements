@@ -1,8 +1,15 @@
+/**
+	bohrmodel.js
+	
+	A Bohr model diagram of the current element.
+*/
+
 var BohrModel = {
 	electronOrbits: '2,8,13,1',
 	numOfElectronShells: 4,
 	electrons: Array(2, 8, 13, 1),
 	
+	// Create a new canvas to work with.
 	createCanvas: function()
 	{
 		this.width = $('#bohr-model').width() * 0.9;
@@ -10,7 +17,7 @@ var BohrModel = {
 		
 		this.centerX = this.width / 2;
 		this.centerY = this.height / 2;
-		this.distanceBetweenShells = ((this.height / 2) - (7 * 2) - 5) / 7;
+		this.distanceBetweenShells = ((this.height / 2) - (7 * 2) - 5) / 7; // FIXME: crazy maths
 		
 		this.canvas = $('<canvas />');
 		this.canvas.attr('width', this.width);
@@ -18,6 +25,7 @@ var BohrModel = {
 		$('#bohr-model').append(this.canvas);
 	},
 	
+	// Load a new element's information and update the Bohr model
 	load: function(whichElement)
 	{
 		if (!this.canvas)
@@ -27,6 +35,7 @@ var BohrModel = {
 		this.draw();
 	},
 
+	// Draw the Bohr model
 	draw: function()
 	{
 		var electrons = this.electrons;

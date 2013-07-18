@@ -1,9 +1,16 @@
+/**
+	application.js
+	
+	Set up the application.
+*/
+
 var Application = {
 	currentView: 'loading',
 	fastLoad: true,
 
+	// Set up the app
 	init: function()
-	{ // Set up the app
+	{
 		$(window).bind('hashchange', this.hashChange);
 		
 		TemperatureGraph.init();
@@ -20,6 +27,7 @@ var Application = {
 			this.doneLoading();
 	},
 
+	// When the app is done loading, switch to main view
 	doneLoading: function()
 	{
 		//Application.switchView('table');
@@ -31,8 +39,9 @@ var Application = {
 		Application.currentView = 'table';
 	},
 
+	// When the user updated the #hash in the URL
 	hashChange: function()
-	{ // Updated the #hash in the URL
+	{
 		var hash = window.location.hash.substring(1);
 		
 		if (hash == '')
@@ -47,8 +56,9 @@ var Application = {
 		}
 	},
 
+	// Change the main application view
 	switchView: function(newView)
-	{ // Change the main application view
+	{
 		if (newView == this.currentView)
 			return;
 		

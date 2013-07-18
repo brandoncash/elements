@@ -1,7 +1,14 @@
+/**
+	table.js
+	
+	The periodic table view.
+*/
+
 var Table = {
 	currentTemp: 20,
 	currentYear: 1800,
 
+	// Initialize the table view
 	init: function()
 	{
 		for (var i = 1; i <= 118; i++)
@@ -30,6 +37,7 @@ var Table = {
 		$('#controls-category').css({display: 'block'}); // Show the categories control box
 	},
 
+	// Add a new element to the table
 	addElement: function(element)
 	{
 		var container = $('<div>');
@@ -104,11 +112,13 @@ var Table = {
 		$('#elements').append(container);
 	},
 
+	// Clicking on an element
 	clickElement: function(elementNumber)
 	{
 		window.location.hash = elementNumber;
 	},
 
+	// Change the table view
 	changeView: function(newView)
 	{
 		$('#table').attr('class', newView);
@@ -135,6 +145,7 @@ var Table = {
 		}
 	},
 
+	// Adjust the temperature
 	changeTemp: function(newTemperature)
 	{
 		// FIXME: some elements have known melting point but unknown boiling point (96 Curium)
@@ -163,6 +174,7 @@ var Table = {
 		TemperatureGraph.draw();
 	},
 
+	// Adjust the discovery year
 	changeDiscoveryYear: function(newYear)
 	{
 		if (newYear < DiscoveryGraph.firstYear)

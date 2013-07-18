@@ -1,5 +1,12 @@
+/**
+	inspector.js
+	
+	The element inspector.
+*/
+
 var Inspector = {
 
+	// Initialize the inspector view
 	init: function()
 	{
 		// Adjust the viewport height to match screen space
@@ -48,6 +55,7 @@ var Inspector = {
 		$('#close-inspector').click(function() { window.location.hash = ''; });
 	},
 
+	// Load a new element into the inspector
 	loadElement: function(elementNumber)
 	{
 		var element = periodicElements[elementNumber];

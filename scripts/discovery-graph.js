@@ -1,9 +1,16 @@
+/**
+	discovery-graph.js
+	
+	An interactive graph to select the current discovery year.
+*/
+
 var DiscoveryGraph = {
 	firstYear: 1745,
 	lastYear: 2010,
 	newDiscovered: [],
 	numberDiscovered: [],
-	
+
+	// Initialize the graph	
 	init: function()
 	{
 		this.firstGraphYear = this.firstYear - 10;
@@ -37,6 +44,7 @@ var DiscoveryGraph = {
 		this.draw();
 	},
 
+	// Create a new canvas to draw on
 	createCanvas: function()
 	{
 		this.width = $('#discovery-graph').width();
@@ -52,6 +60,7 @@ var DiscoveryGraph = {
 		$(this.canvas).click(this.onTouch);
 	},
 	
+	// Draw the graph
 	draw: function()
 	{
 		var ctx = this.canvas.get(0).getContext('2d');
@@ -64,6 +73,7 @@ var DiscoveryGraph = {
 		ctx.restore();
 	},
 
+	// Draw the background of the graph
 	drawBackground: function(ctx)
 	{
 		ctx.beginPath();
@@ -87,6 +97,7 @@ var DiscoveryGraph = {
 		ctx.closePath();
 	},
 
+	// Draw the foreground of the graph
 	drawForeground: function(ctx)
 	{
 		ctx.beginPath();
@@ -167,6 +178,7 @@ var DiscoveryGraph = {
 		}
 	},
 
+	// Update the table discovery year (table.js) on touch
 	onTouch: function(e)
 	{
 		var position = e.offsetX / this.width; // Normalized percentage of click position

@@ -1,8 +1,15 @@
+/**
+	temperature-graph.js
+	
+	An interactive graph to select the temperature of the table.
+*/
+
 var TemperatureGraph = {
 	currentTemp: 20,
 	startTemp: -300, // Lowest is -272
 	endTemp: 5700, // Highest is 5660
 
+	// Initialize the temperature graph
 	init: function()
 	{
 		this.createCanvas();
@@ -11,6 +18,7 @@ var TemperatureGraph = {
 		$(this.canvas).click(this.onTouch);
 	},
 	
+	// Create a new canvas to draw on
 	createCanvas: function()
 	{
 		this.width = $('#temperature-graph').width();
@@ -24,6 +32,7 @@ var TemperatureGraph = {
 		$('#temperature-graph').append(this.canvas);
 	},
 	
+	// Draw the graph
 	draw: function()
 	{
 		var ctx = this.canvas.get(0).getContext('2d');
@@ -36,6 +45,7 @@ var TemperatureGraph = {
 		ctx.restore();
 	},
 
+	// Draw the background
 	drawBackground: function(ctx)
 	{
 		ctx.beginPath();
@@ -56,6 +66,7 @@ var TemperatureGraph = {
 		ctx.closePath();
 	},
 
+	// Draw the foreground
 	drawForeground: function(ctx)
 	{		
 		ctx.beginPath();
@@ -118,6 +129,7 @@ var TemperatureGraph = {
 		ctx.closePath();
 	},
 
+	// Update the table temperature (table.js) on touch
 	onTouch: function(e)
 	{
 		var position = (e.offsetX / this.width); // Normalized percentage of click position
