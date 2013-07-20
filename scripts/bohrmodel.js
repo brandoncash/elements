@@ -42,23 +42,16 @@ var BohrModel = {
 		var numOfElectronShells = this.electrons.length - 1;
 		var centerX = this.centerX;
 		var centerY = this.centerY;
-		var electronSize = this.distanceBetweenShells * 0.75;
+		var electronSize = this.distanceBetweenShells * 0.65;
 		
 		var ctx = this.canvas.get(0).getContext('2d');
 		ctx.save();
 		ctx.clearRect(0, 0, this.width, this.height);
 		
 		// Draw the nucleus
-		var radgrad = ctx.createRadialGradient(
-			centerX - (electronSize * 0.25), centerY - (electronSize * 0.25), 2,
-			centerX,  centerY, electronSize * 1.2
-		);
-		radgrad.addColorStop(0, '#ff781e');
-		radgrad.addColorStop(0.9, '#a51313');
-		radgrad.addColorStop(1, '#222');
 		ctx.beginPath();
-		ctx.fillStyle = radgrad;
-		ctx.arc(centerX, centerY, electronSize * 1.2, 0, Math.PI * 2, true);
+		ctx.fillStyle = '#FF3D46';
+		ctx.arc(centerX, centerY, electronSize, 0, Math.PI * 2, true);
 		ctx.fill();
 
 		for (var i = 0; i <= numOfElectronShells; i++)
@@ -68,7 +61,7 @@ var BohrModel = {
 			// Highlight below electron shell
 			ctx.beginPath();
 			ctx.lineWidth = electronSize * 0.15;
-			ctx.strokeStyle = '#222';
+			ctx.strokeStyle = '#7693b1';
 			ctx.arc(centerX, centerY, distanceFromCenter, 0, Math.PI*2, true);
 			ctx.stroke();
 
@@ -80,15 +73,9 @@ var BohrModel = {
 				var x = Math.cos(angle * Math.PI / 180) * distanceFromCenter;
 				var y = Math.sin(angle * Math.PI / 180) * distanceFromCenter;
 				
-				var radgrad = ctx.createRadialGradient(
-					centerX - (electronSize * 0.2) + x, centerY - (electronSize * 0.2) + y, 1,
-					centerX + x,  centerY + y, (electronSize / 2)
-				);
-				radgrad.addColorStop(0, '#67a4d7');
-				radgrad.addColorStop(1, '#222');
 				ctx.beginPath();
-				ctx.fillStyle = radgrad;
 				ctx.arc(centerX + x, centerY + y, electronSize / 2, 0, Math.PI * 2, true);
+				ctx.fillStyle = '#67f176';
 				ctx.fill();
 			}
 		}

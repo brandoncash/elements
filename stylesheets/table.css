@@ -3,16 +3,16 @@
 
 #options {
 	position: absolute;
-	top: 3%;
+	top: 2%;
 	right: 14%;
 	height: 8%;
 }
 
 #table-controls {
 	position: absolute;
-	left: 16%;
-	top: 3%;
-	width: 48.5%;
+	left: 15%;
+	top: 2%;
+	width: 50%;
 	height: 33%;
 }
 .control-box {
@@ -75,18 +75,20 @@
 
 #elements {
 	position: relative;
-	margin: 6% auto 0 auto;
+	margin: 4% auto 0 auto;
 	width: 90%;
 	height: 90%;
 }
 
 .spot {
 	position: absolute;
-	width: 5.25%;
-	height: 9%;
+	width: 1.8em;
+	height: 1.9em;
 	text-align: center;
-	font-size: 0.8em;
-	line-height: 2.2em;
+	line-height: 2em;
+}
+.spot span {
+	font-size: 0.7em;
 }
 
 #labels {
@@ -100,46 +102,37 @@
 }
 .period-label {
 	text-align: right;
-	width: 4.4%;
+	width: 1.7em;
+}
+.break-label {
 }
 
 .element {
 	display: inline-block;
 	position: absolute;
-	width: 5.25%;
-	height: 9%;
-	text-align: left;
-	background-image: -webkit-linear-gradient(top,
-		rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0.25) 75%,
-		rgba(0, 0, 0, 0.2));
-	border-radius: 0.3em;
-	box-shadow: inset 0 0.075em 0 rgba(255, 255, 255, 0.3),
-		0 0 0.1em rgba(0, 0, 0, 0.5),
-		0 0.1em 0.075em rgba(0, 0, 0, 0.6);
-	text-shadow: 0 0 0.1em rgba(0, 0, 0, 0.75),
-		0 -0.075em 0 rgba(0, 0, 0, 0.5);
+	width: 1.8em;
+	height: 1.9em;
+	color: #343e4a;
+	border-radius: 0.2em;
 	line-height: 0.5em;
 	overflow: hidden;
 }
 .pushed {
 	-webkit-transform: translateY(0.075em);
-	box-shadow: inset 0 0.075em 0 rgba(255, 255, 255, 0.3),
-		0 0 0.1em rgba(0, 0, 0, 0.5),
-		0 0.075em 0 rgba(0, 0, 0, 0.6);
 }
 .element .number {
 	position: absolute;
-	left: 10%;
-	top: 10%;
+	left: 7%;
+	top: 7%;
 	font-size: 0.5em;
 }
 .element .symbol {
 	position: absolute;
-	left: 10%;
-	bottom: 20%;
 	width: 100%;
-	font-size: 0.8em;
+	text-align: center;
+	bottom: 20%;
+	font-size: 0.9em;
+	font-weight: bold;
 }
 .element.unnamed .symbol {
 	font-size: 0.7em;
@@ -149,124 +142,124 @@
 	left: -5.6%;
 }
 .group-1 {
-	left: 0%;
+	left: 0;
 }
 .group-2 {
-	left: 5.6%;
+	left: 2em;
 }
 .group-3 {
-	left: 11.2%;
+	left: 4em;
 }
 .group-4 {
-	left: 16.8%;
+	left: 6em;
 }
 .group-5 {
-	left: 22.4%;
+	left: 8em;
 }
 .group-6 {
-	left: 28%;
+	left: 10em;
 }
 .group-7 {
-	left: 33.6%;
+	left: 12em;
 }
 .group-8 {
-	left: 39.2%;
+	left: 14em;
 }
 .group-9 {
-	left: 44.8%;
+	left: 16em;
 }
 .group-10 {
-	left: 50.4%;
+	left: 18em;
 }
 .group-11 {
-	left: 56%;
+	left: 20em;
 }
 .group-12 {
-	left: 61.6%;
+	left: 22em;
 }
 .group-13 {
-	left: 67.2%;
+	left: 24em;
 }
 .group-14 {
-	left: 72.8%;
+	left: 26em;
 }
 .group-15 {
-	left: 78.4%;
+	left: 28em;
 }
 .group-16 {
-	left: 84%;
+	left: 30em;
 }
 .group-17 {
-	left: 89.6%;
+	left: 32em;
 }
 .group-18 {
-	left: 95.2%;
+	left: 34em;
 }
 
 .period-0 {
-	top: -10%;
+	top: -2.1em;
 }
 .period-1 {
-	top: 0%;
+	top: 0;
 }
 .period-2 {
-	top: 10%;
+	top: 2.1em;
 }
 .period-3 {
-	top: 20%;
+	top: 4.2em;
 }
 .period-4 {
-	top: 30%;
+	top: 6.3em;
 }
 .period-5 {
-	top: 40%;
+	top: 8.4em;
 }
 .period-6 {
-	top: 50%;
+	top: 10.5em;
 }
 .period-7 {
-	top: 60%;
+	top: 12.6em;
 }
 .period-9 {
-	top: 75%;
+	top: 15.7em;
 }
 .period-10 {
-	top: 85%;
+	top: 17.8em;
 }
 
 
 .category .element[data-category='nonmetals'],
 .key .category.nonmetals,
 #navigator .nonmetals {
-	background-color: #009779;
+	background-color: #67f176;
 }
 .category .element[data-category='alkali'],
 .key .category.alkali,
 #navigator .alkali {
-	background-color: #b70000;
+	background-color: #FF3D46;
 }
 .category .element[data-category='alkaline'],
 .key .category.alkaline,
 #navigator .alkaline {
-	background-color: #ff6600;
+	background-color: #f4653d;
 }
 .category .element[data-category='noble'],
 .key .category.noble,
 .key .state.gas,
 .temperature .element[data-phase='gas'],
 #navigator .noble {
-	background-color: #6699cc;
+	background-color: #6ED8FA;
 }
 .category .element[data-category='halogens'],
 .key .category.halogens,
 #navigator .halogens,
 .discovery .element[data-discovered='true'].new {
-	background-color: #99cc00;
+	background-color: #1DC134;
 }
 .category .element[data-category='metalloids'],
 .key .category.metalloids,
 #navigator .metalloids {
-	background-color: #fdc20f;
+	background-color: #fff136;
 }
 .category .element[data-category='posttransition'],
 .key .category.posttransition,
@@ -274,31 +267,31 @@
 .temperature .element[data-phase='liquid'],
 .discovery .element[data-discovered='true'],
 #navigator .posttransition {
-	background-color: #0066cc;
+	background-color: #2765DB;
 }
 .category .element[data-category='transition'],
 .key .category.transition,
 .key .state.solid,
 .temperature .element[data-phase='solid'],
 #navigator .transition {
-	background-color: #8000dd;
+	background-color: #A122FF;
 }
 .category .element[data-category='unknown'],
 .key .unknown,
 .temperature .element[data-phase='unknown'],
 .discovery .element[data-discovered='false'],
 #navigator .unknown {
-	background-color: #888888;
+	background-color: #61666d;
 }
 .category .element[data-category='lanthanides'],
 .key .category.lanthanides,
 #navigator .lanthanides {
-	background-color: #dd0080;
+	background-color: #D709DD;
 }
 .category .element[data-category='actinides'],
 .key .category.actinides,
 #navigator .actinides {
-	background-color: #dd00dd;
+	background-color: #DD009F;
 }
 
 .key {
@@ -320,9 +313,6 @@
 	margin-right: 0.1em;
 	vertical-align: middle;
 	border-radius: 0.2em;
-	box-shadow: inset 0 0.075em 0 rgba(255, 255, 255, 0.3),
-		0 0.075em 0.1em rgba(0, 0, 0, 0.5);
-	text-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.5);
 }
 .key span {
 	font-size: 0.7em;

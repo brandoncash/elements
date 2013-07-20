@@ -13,8 +13,6 @@ var DiscoveryGraph = {
 	// Initialize the graph	
 	init: function()
 	{
-		this.firstGraphYear = this.firstYear - 10;
-
 		// Build an array of how many were discovered by that year
 		var yearAccrue = 0;
 		for (var curElement = 1; curElement <= 118; curElement++)
@@ -23,14 +21,14 @@ var DiscoveryGraph = {
 			if (!this.newDiscovered[year])
 				this.newDiscovered[year] = 0;
 			this.newDiscovered[year] += 1;
-			if (year <= this.firstGraphYear)
+			if (year <= this.firstYear)
 			{ // Really old discoveries
 				yearAccrue += 1;
 			}
 		}
 
 		// Now put it in a usable format
-		for (var curYear = this.firstGraphYear; curYear <= this.lastYear; curYear++)
+		for (var curYear = this.firstYear; curYear <= this.lastYear; curYear++)
 		{
 			if (this.newDiscovered[curYear])
 				yearAccrue += this.newDiscovered[curYear];
@@ -50,7 +48,9 @@ var DiscoveryGraph = {
 		this.width = $('#discovery-graph').width();
 		this.height = $('#discovery-graph').height();
 
-		this.arcRadius = this.height / 10;
+		this.paddingSize = this.height * 0.05;
+		this.graphWidth = this.width - (this.paddingSize * 2);
+		this.graphHeight = this.height - (this.paddingSize * 2);
 
 		this.canvas = $('<canvas />');
 		this.canvas.attr('width', this.width);
@@ -77,19 +77,17 @@ var DiscoveryGraph = {
 	drawBackground: function(ctx)
 	{
 		ctx.beginPath();
-		ctx.moveTo(this.arcRadius, this.height - 1);
-		ctx.arcTo(0, this.height, 0, this.height - 1 - this.arcRadius, this.arcRadius);
-		for (var curYear = this.firstGraphYear; curYear <= this.lastYear; curYear++)
+		ctx.moveTo(this.paddingSize, this.graphHeight + this.paddingSize);
+		for (var curYear = this.firstYear; curYear <= this.lastYear; curYear++)
 		{
 			if ((this.numberDiscovered[curYear] != this.numberDiscovered[curYear - 1]) || (curYear == Table.currentYear))
 			{ // If we even need to plot a new point
-				var positionX = (curYear - this.firstGraphYear)  / (this.lastYear - this.firstGraphYear);
+				var positionX = (curYear - this.firstYear)  / (this.lastYear - this.firstYear);
 				var positionY = this.numberDiscovered[curYear] / 118;
-				ctx.lineTo(this.width * positionX, this.height - 1 - (this.height * positionY));
+				ctx.lineTo(this.graphWidth * positionX + this.paddingSize, this.graphHeight - (this.graphHeight * positionY) + this.paddingSize);
 			}
 		}
-		ctx.lineTo(this.width, this.height - 1 - this.arcRadius);
-		ctx.arcTo(this.width, this.height - 1, this.width - this.arcRadius, this.height - 1, this.arcRadius);
+		ctx.lineTo(this.graphWidth + this.paddingSize, this.graphHeight + this.paddingSize);
 		
 		ctx.fillStyle = 'rgba(136, 136, 136, 0.2)';
 		ctx.fill();
@@ -101,71 +99,43 @@ var DiscoveryGraph = {
 	drawForeground: function(ctx)
 	{
 		ctx.beginPath();
-		ctx.moveTo(0, this.height - this.arcRadius);
-		
-		for (var curYear = this.firstGraphYear; curYear <= Table.currentYear; curYear++)
+		ctx.moveTo(this.paddingSize, this.graphHeight + this.paddingSize);
+		var pointOnLine = {x: 0, y: 0};
+		for (var curYear = this.firstYear; curYear <= Table.currentYear; curYear++)
 		{
 			if ((this.numberDiscovered[curYear] != this.numberDiscovered[curYear - 1]) || (curYear == Table.currentYear))
 			{ // If we even need to plot a new point
-				var positionX = (curYear - this.firstGraphYear)  / (this.lastYear - this.firstGraphYear);
+				var positionX = (curYear - this.firstYear)  / (this.lastYear - this.firstYear);
 				var positionY = this.numberDiscovered[curYear] / 118;
-				ctx.lineTo(this.width * positionX, this.height - (this.height * positionY));
+				pointOnLine.x = this.graphWidth * positionX + this.paddingSize;
+				pointOnLine.y = this.graphHeight - (this.graphHeight * positionY) + this.paddingSize;
+				ctx.lineTo(pointOnLine.x, pointOnLine.y);
 			}
 		}
-		var pointOnLine = {
-			x: this.width * positionX,
-			y: this.height - 1 - (this.height * positionY)
-		};
-
-		ctx.arcTo(pointOnLine.x, this.height - 1, 0, this.height - 1, this.arcRadius);
-		ctx.arcTo(0, this.height - 1, 0, this.height * (this.numberDiscovered[this.firstGraphYear] / 118), this.arcRadius);
+		ctx.lineTo(pointOnLine.x, this.graphHeight + this.paddingSize);
 		
-		// Background color
 		ctx.fillStyle = 'rgb(0, 102, 204)';
 		ctx.fill();
+		ctx.closePath();
 
-		// Background gradient
-		var backGradient = ctx.createLinearGradient(0, 0, 0, this.height);
-		backGradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-		backGradient.addColorStop(0.75, 'rgba(0, 0, 0, 0.25)');
-		backGradient.addColorStop(1, 'rgba(0, 0, 0, 0.2)');
-		ctx.fillStyle = backGradient;
+		// Draw a line along the right side
+		ctx.beginPath();
+		ctx.moveTo(pointOnLine.x, pointOnLine.y); // Top right
+		ctx.lineTo(pointOnLine.x, this.height - this.paddingSize);
+		ctx.lineWidth = 2;
+		ctx.strokeStyle = '#7693b1';
+		ctx.stroke();
+		ctx.closePath();
+
+		// Draw a circle at the top of the graph
+		ctx.beginPath();
+		ctx.arc(pointOnLine.x, pointOnLine.y, this.paddingSize, 0, Math.PI * 2, true);
+		ctx.fillStyle = '#67f176';
 		ctx.fill();
-		ctx.closePath();
-
-		// Draw a highlight
-		ctx.beginPath();
-		for (var curYear = this.firstGraphYear; curYear <= Table.currentYear; curYear++)
-		{
-			if ((this.numberDiscovered[curYear] != this.numberDiscovered[curYear - 1]) || (curYear == Table.currentYear))
-			{ // If we even need to plot a new point
-				var positionX = (curYear - this.firstGraphYear)  / (this.lastYear - this.firstGraphYear);
-				var positionY = this.numberDiscovered[curYear] / 118;
-				ctx.lineTo(this.width * positionX, this.height - (this.height * positionY) + 1);
-			}
-		}
-		ctx.lineWidth = 1;
-		ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-		ctx.stroke();
-		ctx.closePath();
-
-		// Draw a shadow
-		ctx.beginPath();
-		ctx.moveTo(pointOnLine.x, pointOnLine.y);
-		ctx.arcTo(pointOnLine.x, this.height - 1, 0, this.height - 1, this.arcRadius);
-		ctx.arcTo(0, this.height - 1, 0, this.height * (this.numberDiscovered[this.firstGraphYear] / 118), this.arcRadius);
-		ctx.lineWidth = 1;
-		ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
-		ctx.stroke();
-		ctx.closePath();
 
 		// Label how many have been discovered
 		ctx.font = (this.height * 0.2) + 'px Arial bold';
 		ctx.fillStyle = '#c8e2e8';
-		ctx.shadowOffsetX = -1;
-		ctx.shadowOffsetY = -1;
-		ctx.shadowBlur = 0;
-		ctx.shadowColor = 'rgba(0, 0, 0, 1)';
 		if (Table.currentYear >= 1820)
 		{ // Show the label on top of the graph
 			ctx.textAlign = 'right';
@@ -182,7 +152,7 @@ var DiscoveryGraph = {
 	onTouch: function(e)
 	{
 		var position = e.offsetX / this.width; // Normalized percentage of click position
-		var newYear = Math.round(((DiscoveryGraph.lastYear - DiscoveryGraph.firstGraphYear) * position) + DiscoveryGraph.firstGraphYear);
+		var newYear = Math.round(((DiscoveryGraph.lastYear - DiscoveryGraph.firstYear) * position) + DiscoveryGraph.firstYear);
 		Table.changeDiscoveryYear(newYear);
 	}
 };
