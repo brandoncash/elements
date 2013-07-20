@@ -29,6 +29,7 @@
 }
 #current-element {
 	font-size: 1.2em;
+	text-shadow: 0 0.05em 0 rgba(255, 255, 255, 0.25);
 }
 #current-element:active {
 	-webkit-transform: none;

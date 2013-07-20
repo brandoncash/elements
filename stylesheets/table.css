@@ -80,6 +80,12 @@
 	height: 90%;
 }
 
+#labels {
+	opacity: 1;
+}
+#labels.hidden {
+	opacity: 0;
+}
 .spot {
 	position: absolute;
 	width: 1.8em;
@@ -88,14 +94,8 @@
 	line-height: 2em;
 }
 .spot span {
-	font-size: 0.7em;
-}
-
-#labels {
-	opacity: 1;
-}
-#labels.hidden {
-	opacity: 0;
+	font-size: 0.6em;
+	font-family: MuseoSlab;
 }
 .group-label {
 	line-height: 3em;
@@ -116,9 +116,15 @@
 	border-radius: 0.2em;
 	line-height: 0.5em;
 	overflow: hidden;
+	box-shadow: inset 0 -0.1em 0 rgba(0, 0, 0, 0.25),
+		inset 0 0.075em 0 rgba(255, 255, 255, 0.1),
+		0 0.075em 0 rgba(0, 0, 0, 0.25);
+	text-shadow: 0 0.075em 0 rgba(255, 255, 255, 0.25);
 }
 .pushed {
 	-webkit-transform: translateY(0.075em);
+	box-shadow: inset 0 0.075em 0 rgba(255, 255, 255, 0.1),
+		0 0.075em 0 rgba(0, 0, 0, 0.25);;
 }
 .element .number {
 	position: absolute;
@@ -130,7 +136,7 @@
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	bottom: 20%;
+	bottom: 0.5em;
 	font-size: 0.9em;
 	font-weight: bold;
 }
@@ -317,8 +323,4 @@
 .key span {
 	font-size: 0.7em;
 	vertical-align: middle;
-}
-.key .large {
-	font-size: 2em;
-	line-height: 1.2em;
 }

@@ -58,10 +58,10 @@ var BohrModel = {
 		{ // Draw each electron shell
 			var distanceFromCenter = (this.distanceBetweenShells * (i + 1)) + 10;
 			
-			// Highlight below electron shell
+			// The electron shell
 			ctx.beginPath();
 			ctx.lineWidth = electronSize * 0.15;
-			ctx.strokeStyle = '#7693b1';
+			ctx.strokeStyle = '#61666d';
 			ctx.arc(centerX, centerY, distanceFromCenter, 0, Math.PI*2, true);
 			ctx.stroke();
 
