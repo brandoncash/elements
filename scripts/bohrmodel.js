@@ -48,6 +48,11 @@ var BohrModel = {
 		ctx.save();
 		ctx.clearRect(0, 0, this.width, this.height);
 		
+		ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+		ctx.shadowBlur = 1;
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 1;
+
 		// Draw the nucleus
 		ctx.beginPath();
 		ctx.fillStyle = '#FF3D46';

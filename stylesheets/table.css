@@ -3,17 +3,17 @@
 
 #options {
 	position: absolute;
-	top: 2%;
-	right: 14%;
-	height: 8%;
+	top: 0.4em;
+	right: 5em;
+	height: 2em;
 }
 
 #table-controls {
 	position: absolute;
-	left: 15%;
-	top: 2%;
-	width: 50%;
-	height: 33%;
+	left: 5.9em;
+	top: 0.4em;
+	width: 20em;
+	height: 7.4em;
 }
 .control-box {
 }

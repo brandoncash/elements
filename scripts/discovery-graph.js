@@ -98,6 +98,7 @@ var DiscoveryGraph = {
 	// Draw the foreground of the graph
 	drawForeground: function(ctx)
 	{
+		// This is the bright active part
 		ctx.beginPath();
 		ctx.moveTo(this.paddingSize, this.graphHeight + this.paddingSize);
 		var pointOnLine = {x: 0, y: 0};
@@ -113,14 +114,36 @@ var DiscoveryGraph = {
 			}
 		}
 		ctx.lineTo(pointOnLine.x, this.graphHeight + this.paddingSize);
-		
+		ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+		ctx.shadowBlur = 1;
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 1;
 		ctx.fillStyle = 'rgb(0, 102, 204)';
 		ctx.fill();
 		ctx.closePath();
 
+		// Draw a line along the top
+		ctx.beginPath();
+		var pointOnLine = {x: 0, y: 0};
+		for (var curYear = this.firstYear; curYear <= Table.currentYear; curYear++)
+		{
+			if ((this.numberDiscovered[curYear] != this.numberDiscovered[curYear - 1]) || (curYear == Table.currentYear))
+			{ // If we even need to plot a new point
+				var positionX = (curYear - this.firstYear)  / (this.lastYear - this.firstYear);
+				var positionY = this.numberDiscovered[curYear] / 118;
+				pointOnLine.x = this.graphWidth * positionX + this.paddingSize;
+				pointOnLine.y = this.graphHeight - (this.graphHeight * positionY) + this.paddingSize;
+				ctx.lineTo(pointOnLine.x, pointOnLine.y + 1);
+			}
+		}
+		ctx.lineWidth = 1;
+		ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+		ctx.stroke();
+		ctx.closePath();
+
 		// Draw a line along the right side
 		ctx.beginPath();
-		ctx.moveTo(pointOnLine.x, pointOnLine.y); // Top right
+		ctx.moveTo(pointOnLine.x, pointOnLine.y + (this.paddingSize / 2)); // Top right
 		ctx.lineTo(pointOnLine.x, this.height - this.paddingSize);
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = '#7693b1';

@@ -69,7 +69,6 @@ var TemperatureGraph = {
 	drawForeground: function(ctx)
 	{		
 		ctx.beginPath();
-		ctx.moveTo(this.paddingSize, this.height - this.paddingSize); // Bottom left corner
 
 		// Figure out where the point sits on the line
 		var position = (Table.currentTemp - this.startTemp)  / (this.endTemp - this.startTemp);
@@ -77,10 +76,17 @@ var TemperatureGraph = {
 			x: ((this.width - (this.paddingSize * 2)) * position) + this.paddingSize,
 			y: this.height - ((this.height - (this.paddingSize * 2)) * position) - this.paddingSize
 		};
-
-		// Draw the bottom right corner
+		
+		// The main graph shape
+		ctx.moveTo(this.paddingSize, this.height - this.paddingSize); // Bottom left corner
 		ctx.lineTo(pointOnLine.x, pointOnLine.y); // Top right corner
-		ctx.lineTo(pointOnLine.x, this.height - this.paddingSize);
+		ctx.lineTo(pointOnLine.x, this.height - this.paddingSize); // Bottom right corner
+
+		// Draw a drop shadow
+		ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+		ctx.shadowBlur = 1;
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 1;
 		
 		// Fill with a bright gradient
 		var tempGradient = ctx.createLinearGradient(0, 0, this.width, 0);
@@ -92,9 +98,18 @@ var TemperatureGraph = {
 		ctx.fillStyle = tempGradient;
 		ctx.fill();
 
+		// Draw a highlight on the top
+		ctx.beginPath();
+		ctx.moveTo(this.paddingSize, this.height - this.paddingSize + 1);
+		ctx.lineTo(pointOnLine.x, pointOnLine.y + 1);
+		ctx.lineWidth = 1;
+		ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+		ctx.stroke();
+		ctx.closePath();
+
 		// Draw a line along the right side
 		ctx.beginPath();
-		ctx.moveTo(pointOnLine.x, pointOnLine.y); // Top right
+		ctx.moveTo(pointOnLine.x, pointOnLine.y + (this.paddingSize / 2)); // Top right
 		ctx.lineTo(pointOnLine.x, this.height - this.paddingSize);
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = '#7693b1';
