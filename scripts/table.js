@@ -7,6 +7,8 @@
 var Table = {
 	currentTemp: 20,
 	currentYear: 1800,
+	currentAtomicRadiusElement: 24,
+	currentView: 'category',
 
 	// Initialize the table view
 	init: function()
@@ -16,25 +18,67 @@ var Table = {
 			this.addElement(periodicElements[i]);
 		}
 
+		// Open the app menu
+		$('#app-menu-button').fastClick(function() {
+			Application.changeView('app-menu');
+		});
+
 		// Change the table view
-		$('#button-category').click(function() { Table.changeView('category'); });
-		$('#button-temperature').click(function() { Table.changeView('temperature'); });
-		$('#button-discovery').click(function() { Table.changeView('discovery'); });
+		// TODO: combine this into one repeatable function - maybe a data attribute?
+		$('#table-view-category').fastClick(function() {
+			Table.tableViewDropdownClick(this, 'category');
+		});
+		$('#table-view-temperature').fastClick(function() {
+			Table.tableViewDropdownClick(this, 'temperature');
+		});
+		$('#table-view-discovery').fastClick(function() {
+			Table.tableViewDropdownClick(this, 'discovery');
+		});
+		$('#table-view-atomic-radii').fastClick(function() {
+			Table.tableViewDropdownClick(this, 'atomic-radii');
+		});
+		$('#table-view-electronegativity').fastClick(function() {
+			Table.tableViewDropdownClick(this, 'electronegativity');
+		});
+		$('#table-view-picture').fastClick(function() {
+			Table.tableViewDropdownClick(this, 'picture');
+		});
 
-		// Increase/decrease temerature of the table
-		$('#temperature-sub').click(function() { Table.changeTemp(Table.currentTemp - 10); });
-		$('#temperature-sub-more').click(function() { Table.changeTemp(Table.currentTemp - 100); });
-		$('#temperature-add').click(function() { Table.changeTemp(Table.currentTemp + 10); });
-		$('#temperature-add-more').click(function() { Table.changeTemp(Table.currentTemp + 100); });
+		// Increase/decrease temerature or discovered year of the table
+		$('#options-temperature .sub-more').fastClick(function() {
+			Table.changeTemp(Table.currentTemp - 100);
+		});
+		$('#options-temperature .sub').fastClick(function() {
+			Table.changeTemp(Table.currentTemp - 10);
+		});
+		$('#options-temperature .add').fastClick(function() {
+			Table.changeTemp(Table.currentTemp + 10);
+		});
+		$('#options-temperature .add-more').fastClick(function() {
+			Table.changeTemp(Table.currentTemp + 100);
+		});
 		
-		// Add/remove years from discovered year
-		$('#discovery-sub').click(function() { Table.changeDiscoveryYear(Table.currentYear - 1); });
-		$('#discovery-sub-more').click(function() { Table.changeDiscoveryYear(Table.currentYear - 10); });
-		$('#discovery-add').click(function() { Table.changeDiscoveryYear(Table.currentYear + 1); });
-		$('#discovery-add-more').click(function() { Table.changeDiscoveryYear(Table.currentYear + 10); });
-
+		$('#options-discovery .sub-more').fastClick(function() {
+			Table.changeDiscoveryYear(Table.currentYear - 10);
+		});
+		$('#options-discovery .sub').fastClick(function() {
+			Table.changeDiscoveryYear(Table.currentYear - 1);
+		});
+		$('#options-discovery .add').fastClick(function() {
+			Table.changeDiscoveryYear(Table.currentYear + 1);
+		});
+		$('#options-discovery .add-more').fastClick(function() {
+			Table.changeDiscoveryYear(Table.currentYear + 10);
+		});
+		
 		$('.control-box').css({display: 'none'}); // Hide the control boxes
 		$('#controls-category').css({display: 'block'}); // Show the categories control box
+	},
+
+	// Clicking a table view dropdown menu item switches the table view
+	tableViewDropdownClick: function(whichOption, newView)
+	{
+		Table.changeView(newView);
 	},
 
 	// Add a new element to the table
@@ -42,72 +86,87 @@ var Table = {
 	{
 		var container = $('<div>');
 		
-		container.addClass('element button');
-		
-		if (element.atomicNumber >= 113)
-			container.addClass('unnamed');
+		container.addClass('element');
 
 		container.attr('id', 'element-' + element.atomicNumber);
-		// TODO: clean this up
-		var stateAtRT = element.stateAtRT;
-		if (stateAtRT == 's') stateAtRT = 'solid';
-		if (stateAtRT == 'g') stateAtRT = 'gas';
-		if (stateAtRT == 'l') stateAtRT = 'liquid';
-		if (stateAtRT == 'u') stateAtRT = 'unknown';
-		container.attr('data-phase', stateAtRT);
+
+		var stateAtRT = [];
+		stateAtRT['s'] = 'solid';
+		stateAtRT['g'] = 'gas';
+		stateAtRT['l'] = 'liquid';
+		stateAtRT['u'] = 'unknown';
+
+		var electronegativity = 'unknown';
+		var tempElectronegativity = parseFloat(element.electronegativity);
+		if (tempElectronegativity > 0) electronegativity = 'e0p0';
+		if (tempElectronegativity > 1.0) electronegativity = 'e1p0';
+		if (tempElectronegativity > 1.3) electronegativity = 'e1p3';
+		if (tempElectronegativity > 1.6) electronegativity = 'e1p6';
+		if (tempElectronegativity > 1.9) electronegativity = 'e1p9';
+		if (tempElectronegativity > 2.2) electronegativity = 'e2p2';
+		if (tempElectronegativity > 2.5) electronegativity = 'e2p5';
+		if (tempElectronegativity > 2.8) electronegativity = 'e2p8';
+		if (tempElectronegativity > 3.1) electronegativity = 'e3p1';
+		if (tempElectronegativity == NaN) electronegativity = 'unknown';
+		container.addClass(electronegativity);
+
+		var radius = (element.atomicRadius / AtomicRadiiGraph.highestRadius) * 0.6;
+		// This one is apparently too new for mobile webkit:
+		//var backgroundGradient = 'radial-gradient(circle ' + radius + 'em at 1em 0.7em, transparent ' + radius + 'em, #d4edf1 ' + (radius + 0.05) + 'em)';
+		var backgroundGradient = '-webkit-radial-gradient(1em 0.7em, ' + radius + 'em ' + radius + 'em, #43ca68 ' + radius + 'em, transparent ' + (radius + 0.05) + 'em)';
+		if (element.atomicRadius == 'unknown')
+			backgroundGradient = 'none';
+
+		var backgroundPicture = 'url(images/elements/' + element.fullName.toLowerCase() + '.jpg)';
+		if (element.atomicNumber > 103)
+			backgroundPicture = 'url(images/elements/transactinoid.png)';
+
+		container.css('background-image', backgroundGradient + ', ' + backgroundPicture);
+		if (element.atomicRadius == 'unknown')
+			container.addClass('unknown-atomic-radius');
+		if (element.atomicNumber == this.currentAtomicRadiusElement)
+			container.addClass('current-atomic-radius');
+		if ((element.atomicNumber == this.currentAtomicRadiusElement - 1) || (element.atomicNumber == this.currentAtomicRadiusElement + 1))
+			container.addClass('adjacent-atomic-radius');
+
+		container.attr('data-name', element.fullName);
+		container.attr('data-phase', stateAtRT[element.stateAtRT]);
 		container.attr('data-category', element.category);
 		container.attr('data-number', element.atomicNumber);
-		container.attr('data-discovered', (element.yearDiscovered < 1800)?'true':'false');
+		
+		if (element.yearDiscovered < 0)
+			container.addClass('unrecorded');
+		
+		if (element.yearDiscovered < 1800)
+			container.attr('data-discovered', 'true');
+		else
+			container.attr('data-discovered', 'false');
+		
+		container.attr('data-atomic-radius', (element.atomicRadius == 'unknown')?'0':element.atomicRadius);
 		container.html(
 			'<div class="number">' + element.atomicNumber + '</div>' +
-			'<div class="symbol">' + element.atomicSymbol + '</div>'
+			'<div class="symbol">' + element.atomicSymbol + '</div>' +
+			'<div class="year-discovered">' + ((element.yearDiscovered > 0)?element.yearDiscovered:((-1 * element.yearDiscovered) + ' BC')) + '</div>' +
+			'<div class="electronegativity">' + ((element.electronegativity == 'unknown')?'':element.electronegativity) + '</div>' +
+			'<div class="atomic-radius">' + ((element.atomicRadius == 'unknown')?'':element.atomicRadius) + '</div>'
 		);
 		container.addClass('group-' + element.group);
 		container.addClass('period-' + element.period);
 		
-		container.bind('touchstart mousedown', function()
+		container.fastClick(function()
 		{
-			$(this).addClass('pushed');
-		});
-		container.bind('touchend mouseup', function()
-		{
-			// TODO: test for long press
 			Table.clickElement($(this).attr('data-number'));
-			$(this).removeClass('pushed');
 		});
-		
-		// Test for long presses
-		/*var longPressTimer = null;
-		var stillHolding = false;
-		var hasMoved = false;
-		var startSelection = function()
+
+		container.bind('mousewheel', function(event, delta)
 		{
-			stillHolding = true;
-			longPressTimer = setTimeout(function()
-			{
-				if (!stillHolding)
-					return;
-					
-				Table.longPressElement(element.atomicNumber);
-			}, 750);
-		};
-		var stopSelection = function()
-		{
-			stillHolding = false;
-			longPressTimer = null;
-		};
-		var moveSelection = function(event)
-		{
-			if (!stillHolding)
+			if (delta <= 0)
 				return;
-				
-			hasMoved = true;
-			longPressTimer = null;
-			Table.dragElement(element.atomicNumber);
-		};
-		container.mousedown(startSelection);
-		container.mouseup(stopSelection);
-		container.mousemove(moveSelection);*/
+
+			Inspector.loadElement($(this).attr('data-number'));
+			Inspector.changeView('inspect');
+			Application.changeView('inspector');
+		});
 		
 		$('#elements').append(container);
 	},
@@ -115,34 +174,19 @@ var Table = {
 	// Clicking on an element
 	clickElement: function(elementNumber)
 	{
-		window.location.hash = elementNumber;
+		Inspector.loadElement(elementNumber);
+		Inspector.changeView('inspect');
+		Application.changeView('inspector');
 	},
 
 	// Change the table view
 	changeView: function(newView)
 	{
-		$('#table').attr('class', newView);
-
-		$('#options img').removeClass('active'); // Shrink the old view button
-		$('#button-' + newView).addClass('active'); // Embiggen the new view button
+		Table.currentView = newView;
 
 		$('.control-box').css({display: 'none'}); // Hide the old control box
 		$('#controls-' + newView).css({display: 'block'}); // Show the new one
-
-		switch(newView)
-		{
-			case 'category':
-				$('#labels').removeClass('hidden');
-				break;
-			case 'temperature':
-				TemperatureGraph.draw();
-				$('#labels').addClass('hidden');
-				break;
-			case 'discovery':
-				DiscoveryGraph.draw();
-				$('#labels').addClass('hidden');
-				break;
-		}
+		$('#table').attr('class', newView + ' active');
 	},
 
 	// Adjust the temperature
@@ -170,7 +214,7 @@ var Table = {
 				phaseState = 'gas';
 			$('#element-' + elemNumber).attr('data-phase', phaseState);
 		}
-		$('#temperature-display').html(Table.currentTemp + ' <sup>&deg; C</sup>');
+		$('#options-temperature .display').html(Table.currentTemp + '<sup>&deg; C</sup>');
 		TemperatureGraph.draw();
 	},
 
@@ -195,14 +239,28 @@ var Table = {
 			else
 				$('#element-' + elemNumber).removeClass('new');
 		}
-		var newElementsDiscovered = DiscoveryGraph.newDiscovered[Table.currentYear];
-		$('#new-elements-number').text(newElementsDiscovered);
-		if ((newElementsDiscovered == 0) || (newElementsDiscovered > 1))
-			$('#new-elements-label').text('new elements discovered');
-		else
-			$('#new-elements-label').text('new element discovered');
+		$('#discovered-elements-number').text(DiscoveryGraph.numberDiscovered[Table.currentYear]);
+		$('#discovered-this-year').text('(' + DiscoveryGraph.newlyDiscovered[Table.currentYear] + ')');
 
-		$('#discovery-year').text(Table.currentYear);
+		$('#options-discovery .display').text(Table.currentYear);
 		DiscoveryGraph.draw();
+	},
+
+	changeAtomicRadiusElement: function(newElement)
+	{
+		if (newElement < 1)
+			newElement = 1;
+		if (newElement > 99)
+			newElement = 99;
+
+		$('#table .element').removeClass('current-atomic-radius adjacent-atomic-radius');
+		$('#element-' + Table.currentAtomicRadiusElement).addClass('current-atomic-radius');
+		$('#element-' + (Table.currentAtomicRadiusElement - 1)).addClass('adjacent-atomic-radius');
+		$('#element-' + (Table.currentAtomicRadiusElement + 1)).addClass('adjacent-atomic-radius');
+		if (Table.currentAtomicRadiusElement != newElement)
+		{ // Do we need to redraw?
+			Table.currentAtomicRadiusElement = newElement;
+			AtomicRadiiGraph.draw();
+		}
 	}
 };

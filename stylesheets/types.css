@@ -7,7 +7,3 @@
 	font-family: MuseoSans;
 	src: url(../fonts/MuseoSans.otf) format("opentype");
 }
-@font-face {
-	font-family: Daniel;
-	src: url(../fonts/DanielBold.ttf) format("truetype");
-}

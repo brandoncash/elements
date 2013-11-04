@@ -1,90 +1,145 @@
 #table {
+	-webkit-transform: translateZ(0);
+	opacity: 0.1;
+}
+#table.active {
+	opacity: 1;
 }
 
-#options {
+#title {
 	position: absolute;
-	top: 0.4em;
-	right: 5em;
-	height: 2em;
+	left: 3em;
+	top: 1em;
+	display: inline-block;
+	margin: 0;
+	font-size: 1.5em;
+	line-height: 1.4em;
+	color: #334;
+	font-family: MuseoSlab;
+}
+
+#menu-buttons {
+	position: absolute;
+	left: 2.5em;
+	top: 17.8em;
+}
+#menu-buttons .icon {
+	width: 3em;
+	height: 3em;
+}
+
+#table-view-dropdown {
+	position: absolute;
+	top: 1.7em;
+	left: 26.2em;
 }
 
 #table-controls {
 	position: absolute;
-	left: 5.9em;
-	top: 0.4em;
-	width: 20em;
-	height: 7.4em;
+	left: 6em;
+	top: 3.7em;
+	width: 19.9em;
+	height: 4.1em;
 }
 .control-box {
-}
-.control-box .title {
-}
-.control-box .subsection {
-	color: #7693b1;
-}
-#controls-category {
-	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
-.selector {
+.table-view-control {
 	position: absolute;
-	bottom: 3.8em;
-	right: 0;
-	height: 2em;
+	top: -10em;
+	left: 14em;
+	width: 11.9em;
+	height: 1.7em;
+	text-align: right;
+	-webkit-transition: top 0.3s ease-in-out;
 }
-.selector .button {
+#table.temperature #options-temperature,
+#table.discovery #options-discovery,
+#table.atomic-radii #atomic-radii-dropdown {
+	top: 1.7em;
+}
+
+#atomic-radii-dropdown {
+	text-align: left;
+	width: 8.9em;
+	left: 16.4em;
+	-webkit-transition: top 0.3s ease-in-out,
+		height 0.25s ease-in-out;
+}
+
+.number-selector {
+}
+.number-selector .button {
 	display: inline-block;
 	vertical-align: middle;
-	font-size: 0.5em;
-	line-height: 2em;
-	padding: 0 0.5em;
+	font-family: MuseoSans;
+	font-size: 1em;
+	width: 1.7em;
+	height: 1.7em;
+	line-height: 1.7em;
+	text-align: center;
+	padding: 0;
+	background-color: #d1347f;
+	border-radius: 0.1em;
+	box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.25);
 }
-#temperature-display,
-#discovery-year {
+.number-selector .display {
 	display: inline-block;
 	width: 4em;
 	text-align: center;
 	vertical-align: middle;
 }
-#new-elements {
-	margin-top: 1.5em;
-}
-#new-elements-number {
-	display: inline-block;
-	font-size: 2.5em;
-	line-height: 1em;
-	width: 1.7em;
-	padding-right: 0.1em;
+#options-temperature .display {
 	text-align: right;
-	vertical-align: middle;
-}
-#new-elements-label {
-	display: inline-block;
-	font-size: 0.8em;
-	line-height: 1.2em;
-	vertical-align: middle;
-	width: 8em;
+	padding-right: 0.3em;
+	width: 3.7em;
 }
 
-#temperature-graph, #discovery-graph {
+#discovered-elements {
 	position: absolute;
-	bottom: 0%;
+	right: 0.5em;
+	bottom: 0.5em;
+	z-index: 1;
+}
+#discovered-elements-number {
+	display: inline-block;
+	font-size: 2.5em;
+	vertical-align: bottom;
+}
+#discovered-elements-label {
+	display: inline-block;
+	font-size: 0.8em;
+	line-height: 1em;
+	vertical-align: bottom;
+}
+
+#temperature-graph,
+#discovery-graph,
+#atomic-radii-graph {
+	position: absolute;
+	left: 0;
+	top: 0;
 	width: 100%;
-	height: 3.5em;
+	height: 100%;
+	z-index: -1;
 }
 
 #elements {
-	position: relative;
-	margin: 4% auto 0 auto;
-	width: 90%;
-	height: 90%;
+	position: absolute;
+	top: 1.6em;
+	left: 2em;
 }
 
 #labels {
-	opacity: 1;
+	visibility: hidden;
 }
-#labels.hidden {
-	opacity: 0;
+.category #labels {
+	visibility: visible;
 }
 .spot {
 	position: absolute;
@@ -98,38 +153,47 @@
 	font-family: MuseoSlab;
 }
 .group-label {
-	line-height: 3em;
+	line-height: 0.7em;
 }
 .period-label {
 	text-align: right;
 	width: 1.7em;
 }
 .break-label {
+	position: absolute;
 }
 
 .element {
 	display: inline-block;
 	position: absolute;
-	width: 1.8em;
-	height: 1.9em;
-	color: #343e4a;
-	border-radius: 0.2em;
+	width: 1.9em;
+	height: 2.0em;
+	color: #223;
+	border-radius: 0.1em;
 	line-height: 0.5em;
 	overflow: hidden;
-	box-shadow: inset 0 -0.1em 0 rgba(0, 0, 0, 0.25),
-		inset 0 0.075em 0 rgba(255, 255, 255, 0.1),
-		0 0.075em 0 rgba(0, 0, 0, 0.25);
-	text-shadow: 0 0.075em 0 rgba(255, 255, 255, 0.25);
+	background-repeat: no-repeat;
+	background-position-x: 2em, 2em;
+	background-size: 100% 100%;
 }
-.pushed {
-	-webkit-transform: translateY(0.075em);
-	box-shadow: inset 0 0.075em 0 rgba(255, 255, 255, 0.1),
-		0 0.075em 0 rgba(0, 0, 0, 0.25);;
+.element:active {
+	-webkit-transform: scale(0.95);
+}
+.element .year-discovered,
+.element .electronegativity,
+.element .atomic-radius {
+	position: absolute;
+	top: 0.3em;
+	left: 0%;
+	right: 0%;
+	text-align: center;
+	font-size: 0.5em;
+	visibility: hidden;
 }
 .element .number {
 	position: absolute;
-	left: 7%;
-	top: 7%;
+	left: 0.3em;
+	top: 0.3em;
 	font-size: 0.5em;
 }
 .element .symbol {
@@ -137,15 +201,17 @@
 	width: 100%;
 	text-align: center;
 	bottom: 0.5em;
-	font-size: 0.9em;
-	font-weight: bold;
+	font-size: 1em;
 }
-.element.unnamed .symbol {
-	font-size: 0.7em;
+#element-113 .symbol,
+#element-115 .symbol,
+#element-117 .symbol,
+#element-118 .symbol {
+	font-size: 0.9em;
 }
 
 .group-0 {
-	left: -5.6%;
+	left: -2em;
 }
 .group-1 {
 	left: 0;
@@ -202,9 +268,6 @@
 	left: 34em;
 }
 
-.period-0 {
-	top: -2.1em;
-}
 .period-1 {
 	top: 0;
 }
@@ -226,6 +289,9 @@
 .period-7 {
 	top: 12.6em;
 }
+.period-8 {
+	top: 14.7em;
+}
 .period-9 {
 	top: 15.7em;
 }
@@ -233,92 +299,150 @@
 	top: 17.8em;
 }
 
+.element.unrecorded .year-discovered {
+	font-size: 0.4em;
+	top: 0.4em;
+}
+#table.discovery .element .year-discovered,
+#table.electronegativity .element .electronegativity,
+#table.atomic-radii .element .atomic-radius {
+	visibility: visible;
+}
+#table.discovery .element .number,
+#table.electronegativity .element .number,
+#table.atomic-radii .element .number,
+#table.picture .number,
+#table.picture .symbol {
+	visibility: hidden;
+}
+#table.atomic-radii .element .symbol {
+	font-size: 0.6em;
+	bottom: 1.1em;
+	left: 0.3em;
+	text-align: left;
+	width: auto;
+}
+#table.atomic-radii .current-atomic-radius .symbol {
+	font-size: 0.8em;
+	bottom: 0.9em;
+	left: 0.1em;
+}
+#table.atomic-radii .element .atomic-radius {
+	top: auto;
+	bottom: 0.1em;
+	left: 0.3em;
+	text-align: left;
+	right: auto;
+}
+#table.atomic-radii .element {
+	background-position-x: 0, 2em;
+}
+#table.picture .element {
+	background-position-x: 2em, 0;
+}
+#table.atomic-radii .element.unknown-atomic-radius {
+	display: none;
+}
 
-.category .element[data-category='nonmetals'],
-.key .category.nonmetals,
-#navigator .nonmetals {
-	background-color: #67f176;
-}
-.category .element[data-category='alkali'],
-.key .category.alkali,
-#navigator .alkali {
-	background-color: #FF3D46;
-}
-.category .element[data-category='alkaline'],
-.key .category.alkaline,
-#navigator .alkaline {
-	background-color: #f4653d;
+.category .element[data-category='actinides'],
+.key .thumb.actinides,
+#navigator .actinides {
+	background-color: #cd6efa;
 }
 .category .element[data-category='noble'],
-.key .category.noble,
-.key .state.gas,
+.key .thumb.noble,
+.key .thumb.gas,
 .temperature .element[data-phase='gas'],
-#navigator .noble {
-	background-color: #6ED8FA;
-}
-.category .element[data-category='halogens'],
-.key .category.halogens,
-#navigator .halogens,
-.discovery .element[data-discovered='true'].new {
-	background-color: #1DC134;
-}
-.category .element[data-category='metalloids'],
-.key .category.metalloids,
-#navigator .metalloids {
-	background-color: #fff136;
+#navigator .noble,
+#table.electronegativity .e0p0 {
+	background-color: #18c6f8;
 }
 .category .element[data-category='posttransition'],
-.key .category.posttransition,
-.key .state.liquid,
+.key .thumb.posttransition,
+.key .thumb.liquid,
+.key .thumb.discovered,
 .temperature .element[data-phase='liquid'],
 .discovery .element[data-discovered='true'],
-#navigator .posttransition {
-	background-color: #2765DB;
+#navigator .posttransition,
+#table.electronegativity .e1p0 {
+	background-color: #257fff;
 }
 .category .element[data-category='transition'],
-.key .category.transition,
-.key .state.solid,
+.key .thumb.transition,
+.key .thumb.solid,
 .temperature .element[data-phase='solid'],
-#navigator .transition {
-	background-color: #A122FF;
+#navigator .transition,
+#table.electronegativity .e1p3 {
+	background-color: #a257fa;
+}
+.category .element[data-category='lanthanides'],
+.key .thumb.lanthanides,
+#navigator .lanthanides,
+#table.electronegativity .e1p6 {
+	background-color: #cc5bd4;
+}
+.category .element[data-category='nonmetals'],
+.key .thumb.nonmetals,
+#navigator .nonmetals,
+#table.electronegativity .e1p9 {
+	background-color: #d1347f;
+}
+.category .element[data-category='halogens'],
+.key .thumb.halogens,
+.key .thumb.newlydiscovered,
+#navigator .halogens,
+.discovery .element[data-discovered='true'].new,
+#table.electronegativity .e2p2 {
+	background-color: #43ca68;
+}
+.category .element[data-category='metalloids'],
+.key .thumb.metalloids,
+#navigator .metalloids,
+#table.electronegativity .e2p5 {
+	background-color: #ddc301;
+}
+.category .element[data-category='alkaline'],
+.key .thumb.alkaline,
+.key .thumb.unrecorded,
+#table.discovery .element.unrecorded,
+#navigator .alkaline,
+#table.electronegativity .e2p8 {
+	background-color: #e28957;
+}
+.category .element[data-category='alkali'],
+.key .thumb.alkali,
+#navigator .alkali,
+#table.electronegativity .e3p1 {
+	background-color: #e03c3d;
 }
 .category .element[data-category='unknown'],
 .key .unknown,
+.key .thumb.undiscovered,
 .temperature .element[data-phase='unknown'],
 .discovery .element[data-discovered='false'],
-#navigator .unknown {
-	background-color: #61666d;
-}
-.category .element[data-category='lanthanides'],
-.key .category.lanthanides,
-#navigator .lanthanides {
-	background-color: #D709DD;
-}
-.category .element[data-category='actinides'],
-.key .category.actinides,
-#navigator .actinides {
-	background-color: #DD009F;
+#navigator .unknown,
+#table.electronegativity .unknown {
+	background-color: #748991;
 }
 
 .key {
 	display: inline-block;
 	vertical-align: top;
-	line-height: 0.8em;
-	padding-left: 3%;
+	padding-left: 0.3em;
+	line-height: 0.7em;
 }
 .key.left {
-	width: 60%;
+	width: 12em;
 }
 .key.right {
-	width: 30%;
+	width: 6em;
 }
-.key .category, .key .state {
+.key .thumb {
 	display: inline-block;
-	width: 0.7em;
-	height: 0.7em;
-	margin-right: 0.1em;
+	width: 0.5em;
+	height: 0.5em;
 	vertical-align: middle;
-	border-radius: 0.2em;
+	border-radius: 0.1em;
 }
 .key span {
 	font-size: 0.7em;

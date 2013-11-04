@@ -1,21 +1,20 @@
-#inspector {
+sup,
+sub {
+	vertical-align: bottom;
+	position: relative;
+	top: 0.4em;
+	font-size: 0.6em;
+}
+sup {
+	top: -0.4em;
 }
 
-#inspector .toolbar {
+#inspector .dropdown {
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 15%;
-	text-align: right;
-	background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
 }
-#inspector .toolbar > div {
-	display: inline-block;
-	vertical-align: middle;
-}
+
 #navigator {
-	width: 30%;
+	width: 7.5em;
 	text-align: center;
 	padding-top: 0.5em;
 }
@@ -29,79 +28,59 @@
 }
 #current-element {
 	font-size: 1.2em;
-	text-shadow: 0 0.05em 0 rgba(255, 255, 255, 0.25);
-}
-#current-element:active {
 	-webkit-transform: none;
 }
-#inspector .title {
-	width: 60%;
+
+section.menu .title {
+	width: 8em;
 	font-size: 2em;
 	text-transform: lowercase;
 	text-align: left;
 	line-height: 1.5em;
+	padding-left: 0.3em;
 }
+
 #inspector .toolbar .icon {
-	width: 5%;
-	padding: 0 1em 0 0;
-	line-height: 1.5em;
-}
-#inspector .toolbar .icon img {
-	height: 100%;
-}
-
-#inspector .menu {
-	position: absolute;
-	right: 70%;
-	bottom: 20%;
-	left: 0;
-	z-index: 10;
-}
-#inspector .menu .tab {
-	margin: 0.3em;
-	padding-right: 1em;
-	font-size: 1.3em;
-	text-align: right;
-	text-transform: lowercase;
-	color: #7693b1;
+	-webkit-transform: scale(0.75);
 	-webkit-transition: -webkit-transform 0.25s ease-in-out;
-	-webkit-backface-visibility: hidden;
 }
-#inspector .menu > div.active,
-#inspector .menu > div:active {
-	color: #c8e2e8;
-	-webkit-transform: scale(1.1);
-	-webkit-transition-delay: 0;
+#inspector .toolbar .icon.active {
+	-webkit-transform: scale(1);
 }
 
-#inspector .viewport {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	bottom: 15%;
-	overflow: hidden;
+#sources-view {
+	overflow-y: scroll;
+	padding: 1em 2em;
 }
-#inspector .viewport .track {
-	position: absolute;
-	left: 30%;
-	right: 0;
-}
-#inspector .viewport .track > div {
-	height: 500px;
-}
-#inspector .align-fix {
-	display: inline-block;
-	width: 0px;
-	height: 100%;
-	vertical-align: middle;
-}
-#inspector .viewport .track > div .content {
-	display: inline-block;
-	width: 95%;
-	vertical-align: middle;
-	font-size: 0.9em;
+#sources-view > div {
+	font-size: 0.8em;
 	line-height: 1.2em;
+}
+#sources-view .indent {
+	margin-left: 1em;
+}
+#sources-view h2 {
+	margin-top: 0;
+	margin-bottom: 0.2em;
+}
+#sources-view h3 {
+	margin-bottom: 0;
+}
+#sources-view ul {
+	margin-top: 0;
+}
+
+#wikipedia-view {
+	background-color: #fff;
+	visibility: hidden;
+}
+#inspector.active #wikipedia-view {
+	visibility: visible;
+}
+#wikipedia-portal {
+	width: 100%;
+	height: 100%;
+	border: 0;
 }
 
 #inspector .fixed {
@@ -115,31 +94,34 @@
 #inspector .large {
 	font-size: 2em;
 	line-height: 1.2em;
-	white-space: nowrap;
 }
 
 #picture {
-	text-align: center;
-}
-#picture-frame {
 	display: inline-block;
 	padding: 0.5em;
-	background-color: #eee;
+	background-color: #fff;
 	-webkit-transform: rotate(2deg);
 	-webkit-backface-visibility: hidden;
-	box-shadow: 0 0.1em 0.4em rgba(0, 0, 0, 0.75),
-		0 0.1em 0.1em rgba(0, 0, 0, 0.25);
+	box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.4);
 	vertical-align: middle;
-	height: 15em;
+	height: 11em;
+	position: absolute;
+	left: 13em;
+	top: 2em;
 }
-#picture-img {
-	height: 13em;
+
+#hydrides-container,
+#oxides-container,
+#chlorides-container {
+	display: inline-block;
+	width: 8em;
+	vertical-align: top;
 }
-#picture-caption {
-	margin-top: 0.2em;
-	color: #333;
-	font-family: Daniel;
-	font-size: 1.2em;
+#inspector #hydrides,
+#inspector #oxides,
+#inspector #chlorides {
+	font-size: 1.6em;
+	line-height: 1em;
 }
 
 #bohr-model {

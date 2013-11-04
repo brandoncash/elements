@@ -7,7 +7,7 @@
 var DiscoveryGraph = {
 	firstYear: 1745,
 	lastYear: 2010,
-	newDiscovered: [],
+	newlyDiscovered: [],
 	numberDiscovered: [],
 
 	// Initialize the graph	
@@ -18,9 +18,9 @@ var DiscoveryGraph = {
 		for (var curElement = 1; curElement <= 118; curElement++)
 		{
 			var year = periodicElements[curElement].yearDiscovered;
-			if (!this.newDiscovered[year])
-				this.newDiscovered[year] = 0;
-			this.newDiscovered[year] += 1;
+			if (!this.newlyDiscovered[year])
+				this.newlyDiscovered[year] = 0;
+			this.newlyDiscovered[year] += 1;
 			if (year <= this.firstYear)
 			{ // Really old discoveries
 				yearAccrue += 1;
@@ -30,10 +30,10 @@ var DiscoveryGraph = {
 		// Now put it in a usable format
 		for (var curYear = this.firstYear; curYear <= this.lastYear; curYear++)
 		{
-			if (this.newDiscovered[curYear])
-				yearAccrue += this.newDiscovered[curYear];
+			if (this.newlyDiscovered[curYear])
+				yearAccrue += this.newlyDiscovered[curYear];
 			else
-				this.newDiscovered[curYear] = 0;
+				this.newlyDiscovered[curYear] = 0;
 
 			this.numberDiscovered[curYear] = yearAccrue;
 		}
@@ -48,16 +48,20 @@ var DiscoveryGraph = {
 		this.width = $('#discovery-graph').width();
 		this.height = $('#discovery-graph').height();
 
-		this.paddingSize = this.height * 0.05;
-		this.graphWidth = this.width - (this.paddingSize * 2);
-		this.graphHeight = this.height - (this.paddingSize * 2);
-
 		this.canvas = $('<canvas />');
-		this.canvas.attr('width', this.width);
-		this.canvas.attr('height', this.height);
+		var ctx = this.canvas.get(0).getContext('2d');
+		ctx.save();
+
+		this.canvas.attr('width', this.width * 2);
+		this.canvas.attr('height', this.height * 2);
+		this.canvas.css(
+		{
+			width: this.width + 'px',
+			height: this.height + 'px'
+		});
 		$('#discovery-graph').append(this.canvas);
 
-		$(this.canvas).click(this.onTouch);
+		$('#controls-discovery').bind('mousedown mousemove touchstart touchmove', this.onTouch);
 	},
 	
 	// Draw the graph
@@ -65,6 +69,7 @@ var DiscoveryGraph = {
 	{
 		var ctx = this.canvas.get(0).getContext('2d');
 		ctx.save();
+		ctx.scale(2, 2);
 		ctx.clearRect(0, 0, this.width, this.height);
 
 		this.drawBackground(ctx);
@@ -77,19 +82,19 @@ var DiscoveryGraph = {
 	drawBackground: function(ctx)
 	{
 		ctx.beginPath();
-		ctx.moveTo(this.paddingSize, this.graphHeight + this.paddingSize);
+		ctx.moveTo(0, this.height);
 		for (var curYear = this.firstYear; curYear <= this.lastYear; curYear++)
 		{
 			if ((this.numberDiscovered[curYear] != this.numberDiscovered[curYear - 1]) || (curYear == Table.currentYear))
 			{ // If we even need to plot a new point
 				var positionX = (curYear - this.firstYear)  / (this.lastYear - this.firstYear);
 				var positionY = this.numberDiscovered[curYear] / 118;
-				ctx.lineTo(this.graphWidth * positionX + this.paddingSize, this.graphHeight - (this.graphHeight * positionY) + this.paddingSize);
+				ctx.lineTo(this.width * positionX, this.height - (this.height * positionY));
 			}
 		}
-		ctx.lineTo(this.graphWidth + this.paddingSize, this.graphHeight + this.paddingSize);
+		ctx.lineTo(this.width, this.height);
 		
-		ctx.fillStyle = 'rgba(136, 136, 136, 0.2)';
+		ctx.fillStyle = 'rgba(37, 127, 255, 0.3)';
 		ctx.fill();
 		
 		ctx.closePath();
@@ -100,7 +105,7 @@ var DiscoveryGraph = {
 	{
 		// This is the bright active part
 		ctx.beginPath();
-		ctx.moveTo(this.paddingSize, this.graphHeight + this.paddingSize);
+		ctx.moveTo(0, this.height);
 		var pointOnLine = {x: 0, y: 0};
 		for (var curYear = this.firstYear; curYear <= Table.currentYear; curYear++)
 		{
@@ -108,74 +113,37 @@ var DiscoveryGraph = {
 			{ // If we even need to plot a new point
 				var positionX = (curYear - this.firstYear)  / (this.lastYear - this.firstYear);
 				var positionY = this.numberDiscovered[curYear] / 118;
-				pointOnLine.x = this.graphWidth * positionX + this.paddingSize;
-				pointOnLine.y = this.graphHeight - (this.graphHeight * positionY) + this.paddingSize;
+				pointOnLine.x = this.width * positionX;
+				pointOnLine.y = this.height - (this.height * positionY);
 				ctx.lineTo(pointOnLine.x, pointOnLine.y);
 			}
 		}
-		ctx.lineTo(pointOnLine.x, this.graphHeight + this.paddingSize);
-		ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-		ctx.shadowBlur = 1;
-		ctx.shadowOffsetX = 0;
-		ctx.shadowOffsetY = 1;
-		ctx.fillStyle = 'rgb(0, 102, 204)';
+		ctx.lineTo(pointOnLine.x, this.height);
+		ctx.fillStyle = '#257fff';
 		ctx.fill();
-		ctx.closePath();
-
-		// Draw a line along the top
-		ctx.beginPath();
-		var pointOnLine = {x: 0, y: 0};
-		for (var curYear = this.firstYear; curYear <= Table.currentYear; curYear++)
-		{
-			if ((this.numberDiscovered[curYear] != this.numberDiscovered[curYear - 1]) || (curYear == Table.currentYear))
-			{ // If we even need to plot a new point
-				var positionX = (curYear - this.firstYear)  / (this.lastYear - this.firstYear);
-				var positionY = this.numberDiscovered[curYear] / 118;
-				pointOnLine.x = this.graphWidth * positionX + this.paddingSize;
-				pointOnLine.y = this.graphHeight - (this.graphHeight * positionY) + this.paddingSize;
-				ctx.lineTo(pointOnLine.x, pointOnLine.y + 1);
-			}
-		}
-		ctx.lineWidth = 1;
-		ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-		ctx.stroke();
 		ctx.closePath();
 
 		// Draw a line along the right side
 		ctx.beginPath();
-		ctx.moveTo(pointOnLine.x, pointOnLine.y + (this.paddingSize / 2)); // Top right
-		ctx.lineTo(pointOnLine.x, this.height - this.paddingSize);
+		ctx.moveTo(pointOnLine.x, pointOnLine.y); // Top right
+		ctx.lineTo(pointOnLine.x, this.height);
 		ctx.lineWidth = 2;
-		ctx.strokeStyle = '#7693b1';
+		ctx.strokeStyle = '#d1347f';
 		ctx.stroke();
 		ctx.closePath();
-
-		// Draw a circle at the top of the graph
-		ctx.beginPath();
-		ctx.arc(pointOnLine.x, pointOnLine.y, this.paddingSize, 0, Math.PI * 2, true);
-		ctx.fillStyle = '#67f176';
-		ctx.fill();
-
-		// Label how many have been discovered
-		ctx.font = (this.height * 0.2) + 'px Arial bold';
-		ctx.fillStyle = '#c8e2e8';
-		if (Table.currentYear >= 1820)
-		{ // Show the label on top of the graph
-			ctx.textAlign = 'right';
-			ctx.fillText(this.numberDiscovered[Table.currentYear], pointOnLine.x - this.arcRadius, this.height - this.arcRadius);
-		}
-		else
-		{ // Show it in the background
-			ctx.textAlign = 'left';
-			ctx.fillText(this.numberDiscovered[Table.currentYear], (this.width * 0.3) + this.arcRadius, this.height - this.arcRadius);
-		}
 	},
 
 	// Update the table discovery year (table.js) on touch
 	onTouch: function(e)
 	{
-		var position = e.offsetX / this.width; // Normalized percentage of click position
+		if ((e.type == 'mousemove') && (e.which != 1)) // The mouse is moving, but we're not dragging
+			return;
+		var posX = $('#discovery-graph').offset().left;
+		if (typeof(e.pageX) == 'undefined') // We are using a touch device
+			e.pageX = e.originalEvent.targetTouches[0].pageX;
+		var position = (e.pageX - posX) / DiscoveryGraph.width; // Normalized percentage of click position
 		var newYear = Math.round(((DiscoveryGraph.lastYear - DiscoveryGraph.firstYear) * position) + DiscoveryGraph.firstYear);
+		
 		Table.changeDiscoveryYear(newYear);
 	}
 };

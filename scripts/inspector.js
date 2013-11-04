@@ -5,61 +5,61 @@
 */
 
 var Inspector = {
+	currentView: 'inspect',
+	currentElement: 24,
 
 	// Initialize the inspector view
 	init: function()
 	{
-		// Adjust the viewport height to match screen space
-		$('#inspector .viewport .track > div').height($('#inspector .viewport').height());
-		
-		// Set up menu tabs
-		$('#inspector .viewport .track > div').each(function()
-		{
-			var menu = $('#inspector').children('.menu');
-			menu.append('<div class="tab">' + $(this).attr('data-name') + '</div>');
-		});
-		$('#inspector .menu div:first-child').addClass('active');
-
-		// Pressing a menu tab
-		$('#inspector .menu > div').click(function()
-		{ // Switch to a new section
-			var menu = $('#inspector').children('.menu');
-			var which = menu.children().index(this);
-			var viewport = $('#inspector').children('.viewport');
-			
-			$(this).addClass('active');
-			viewport.jScroll('run', function(iScroll)
-			{
-				iScroll.scrollToPage(0, which);
-			});
-		});
-
-		// Set up scrolling for the viewport
-		$('#inspector .viewport').jScroll({
-			useTransform: true,
-			useTransition: true,
-			vScrollbar: false,
-			snap: true,
-			onScrollEnd: function()
-			{ // Adjust the tab to match our current position
-				var menuItems = $(this.wrapper.parentElement).children('.menu').children();
-				menuItems.removeClass('active');
-				menuItems.eq(this.currPageY).addClass('active');
-			}
-		});
-
 		// Pressing the previous/next element buttons
-		$('#previous-element, #next-element').click(function() { window.location.hash = $(this).attr('data-number'); });
+		$('#previous-element, #next-element').fastClick(function()
+		{
+			var elementNumber = $(this).attr('data-number');
+			Inspector.loadElement(elementNumber);
+
+			if (Inspector.currentView == 'wikipedia')
+				Inspector.launchWikipedia();
+			else
+				$('#wikipedia-portal').attr('src', 'about:blank'); // Save some resources
+		});
+
+		// The different view buttons
+		$('#inspect-button').fastClick(function() {
+			Inspector.changeView('inspect');
+		});
+		$('#sources-button').fastClick(function() {
+			Inspector.changeView('sources');
+		});
+		$('#wikipedia-button').fastClick(function() {
+			Inspector.launchWikipedia();
+			Inspector.changeView('wikipedia');
+		});
 
 		// Pressing the close button
-		$('#close-inspector').click(function() { window.location.hash = ''; });
+		$('#close-inspector').fastClick(function() {
+			Application.changeView('table');
+
+			$('#wikipedia-portal').attr('src', 'about:blank'); // Save some resources
+		});
+
+		// Using the mousewheel on the toolbar
+		$('#inspector .toolbar').bind('mousewheel', function(event)
+		{
+			event.preventDefault();
+			delta = event.originalEvent.wheelDelta;
+			if (delta < 0)
+				Inspector.loadElement(Inspector.currentElement - 1);
+			else
+				Inspector.loadElement(Inspector.currentElement + 1);
+		});
 	},
 
-	// Load a new element into the inspector
+	// Load the the info into the inspector
 	loadElement: function(elementNumber)
 	{
 		var element = periodicElements[elementNumber];
-		
+		Inspector.currentElement = parseInt(elementNumber, 10);
+
 		$('#inspector .title').text(element.fullName);
 
 		if (element.atomicNumber > 1)
@@ -101,20 +101,24 @@ var Inspector = {
 			$('#label-electron-shells').html('electron shell');
 		else
 			$('#label-electron-shells').html('electron shells');
-		var category = element.category;
-		if (category == 'nonmetals') category = 'nonmetals';
-		if (category == 'alkali') category = 'alkali metals';
-		if (category == 'alkaline') category = 'alkaline earth metals';
-		if (category == 'noble') category = 'noble gases';
-		if (category == 'halogens') category = 'halogens';
-		if (category == 'metalloids') category = 'metalloids';
-		if (category == 'transition') category = 'transition metals';
-		if (category == 'posttransition') category = 'post-transition metals';
-		if (category == 'innertransition') category = 'inner transition metals';
-		if (category == 'lanthanides') category = 'lanthanides';
-		if (category == 'actinides') category = 'actinides';
-		$('#category').text(category);
-		$('#crystal-structure').text((element.crystalStructure=='')?'unknown':element.crystalStructure);
+		$('#wikipedia-link').fastClick(function()
+		{
+			Application.openWikipedia('Neon');
+		});
+		
+		var categories = [];
+		categories['nonmetals'] = 'nonmetals';
+		categories['alkali'] = 'alkali metals';
+		categories['alkaline'] = 'alkaline earth metals';
+		categories['noble'] = 'noble gases';
+		categories['halogens'] = 'halogens';
+		categories['metalloids'] = 'metalloids';
+		categories['transition'] = 'transition metals';
+		categories['posttransition'] = 'post-transition metals';
+		categories['innertransition'] = 'inner transition metals';
+		categories['lanthanides'] = 'lanthanides';
+		categories['actinides'] = 'actinides';
+		$('#category').text(categories[element.category]);
 		
 		// Physical properties
 		var stateAtRT = element.stateAtRT;
@@ -134,23 +138,23 @@ var Inspector = {
 		$('#atomic-radius').text(element.atomicRadius);
 		$('#covalent-radius').text(element.covalentRadius);
 		$('#ionic-radius').text(element.ionicRadius);
-		
-		// Miscellanea
+
+		// Discovery
 		if (element.yearDiscovered > 0)
 			$('#year-discovered').text(element.yearDiscovered);
 		else
-			$('#year-discovered').html((-1 * element.yearDiscovered) + ' BC');
-		$('#uses').text(element.uses);
-		$('#hydrides').html(element.hydrides);
-		$('#oxides').html(element.oxides);
-		$('#chlorides').html(element.chlorides);
+			$('#year-discovered').text((-1 * element.yearDiscovered) + ' BC');	
+
+		$('#discovered-by').html('A. Ghiorso<br />J. Nitschke<br />J. Alonso<br />C. Alonso<br />M. Nurmia<br />G. T. Seaborg<br />K. Hulet<br />W. Lougheed'); // FIXME: this is just a fill-in value from Cr
 		
-		// Reactions
-		$('#react-air').html(element.reactAir);
-		$('#react-water').html(element.reactWater);
-		$('#react-HCl').html(element.reactHCl);
-		$('#react-HNO3').html(element.reactHNO3);
-		$('#react-NaOH').html(element.reactNaOH);
+		// Miscellanea
+		$('#crystal-structure').text((element.crystalStructure=='')?'unknown':element.crystalStructure);
+		$('#uses').text(element.uses);
+
+		// TODO: do this replacement in the markup to begin with?
+		$('#hydrides').html(element.hydrides.replace(/ /g, '<br />'));
+		$('#oxides').html(element.oxides.replace(/ /g, '<br />').replace('+non-stoich', '<small>non stoich</small>'));
+		$('#chlorides').html(element.chlorides.replace(/ /g, '<br />'));
 		
 		// Abundance
 		$('#in-earths-crust').html(element.inEarthsCrust);
@@ -162,17 +166,35 @@ var Inspector = {
 		if (elementNumber <= 103)
 		{ // An image is available
 			// FIXME: afterloading this would be better - it seems to slow it down quite a bit!
-			$('#picture-img').attr('src', 'images/elements/' + element.fullName.toLowerCase() + '.jpg');
+			$('#picture').attr('src', 'images/elements/' + element.fullName.toLowerCase() + '.jpg');
 		}
 		else
 		{ // No image available
-			$('#picture-img').attr('src', 'images/elements/transactinoid.png');
+			$('#picture').attr('src', 'images/elements/transactinoid.png');
 		}
-		$('#picture-caption').text(element.fullName);
 		var randRotate = Math.random() * 6 - 3;
 		$('#picture').css('transform', 'rotate(' + randRotate + 'deg)');
 		
 		// Bohr model
 		BohrModel.load(element);
+	},
+
+	// Change the inspector view
+	changeView: function(newView)
+	{
+		Inspector.currentView = newView;
+
+		$('#inspect-button, #sources-button, #wikipedia-button').removeClass('active');
+		$('#' + newView + '-button').addClass('active');
+
+		$('#inspector .page').removeClass('active');
+		$('#' + newView + '-view').addClass('active');
+	},
+
+	launchWikipedia: function()
+	{
+		var newSource = 'http://en.m.wikipedia.org/wiki/' + periodicElements[Inspector.currentElement].fullName;
+		if ($('#wikipedia-portal').attr('src') != newSource)
+			$('#wikipedia-portal').attr('src', newSource);
 	}
 }

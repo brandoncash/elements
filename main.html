@@ -8,24 +8,25 @@
 	<meta name="description" content="An interactive guide to the periodic table of the elements." />
 	<meta name="keywords" content="" />
 	<meta name="HandheldFriendly" content="true" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, target-densitydpi=high-dpi">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 	<title>elements</title>
 	<link rel="shortcut icon" href="favicon.png" />
 	<link rel="image_src" href="images/icon_128.png" />
 	<link rel="stylesheet" href="stylesheets/styles.css" type="text/css" media="screen" />
 	<script src="phonegap.js"></script>
-	<script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
-	<script src="scripts/jquery.transit.min.js" type="text/javascript"></script>
-	<script src="scripts/jquery.noclickdelay.js" type="text/javascript"></script>
+	<script src="scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+	<script src="scripts/jquery.fastclick.js" type="text/javascript"></script>
 	<script src="scripts/iscroll.js" type="text/javascript"></script>
 	<script src="scripts/jscroll.js" type="text/javascript"></script>
 	<script src="scripts/application.js" type="text/javascript"></script>
+	<script src="scripts/app-menu.js" type="text/javascript"></script>
 	<script src="scripts/elements.js" type="text/javascript"></script>
 	<script src="scripts/table.js" type="text/javascript"></script>
 	<script src="scripts/inspector.js" type="text/javascript"></script>
 	<script src="scripts/bohrmodel.js" type="text/javascript"></script>
 	<script src="scripts/temperature-graph.js" type="text/javascript"></script>
 	<script src="scripts/discovery-graph.js" type="text/javascript"></script>
+	<script src="scripts/atomic-radii-graph.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="application-viewport">
@@ -39,24 +40,24 @@
 		<div id="elements">
 			<div id="labels">
 				<!-- Labels for groups -->
-				<div class="group-1 period-0 spot group-label"><span>1</span></div>
-				<div class="group-2 period-1 spot group-label"><span>2</span></div>
-				<div class="group-3 period-3 spot group-label"><span>3</span></div>
-				<div class="group-4 period-3 spot group-label"><span>4</span></div>
-				<div class="group-5 period-3 spot group-label"><span>5</span></div>
-				<div class="group-6 period-3 spot group-label"><span>6</span></div>
-				<div class="group-7 period-3 spot group-label"><span>7</span></div>
-				<div class="group-8 period-3 spot group-label"><span>8</span></div>
-				<div class="group-9 period-3 spot group-label"><span>9</span></div>
-				<div class="group-10 period-3 spot group-label"><span>10</span></div>
-				<div class="group-11 period-3 spot group-label"><span>11</span></div>
-				<div class="group-12 period-3 spot group-label"><span>12</span></div>
-				<div class="group-13 period-1 spot group-label"><span>13</span></div>
-				<div class="group-14 period-1 spot group-label"><span>14</span></div>
-				<div class="group-15 period-1 spot group-label"><span>15</span></div>
-				<div class="group-16 period-1 spot group-label"><span>16</span></div>
-				<div class="group-17 period-1 spot group-label"><span>17</span></div>
-				<div class="group-18 period-0 spot group-label"><span>18</span></div>
+				<div class="group-1 period-8 spot group-label"><span>1</span></div>
+				<div class="group-2 period-8 spot group-label"><span>2</span></div>
+				<div class="group-3 period-8 spot group-label"><span>3</span></div>
+				<div class="group-4 period-8 spot group-label"><span>4</span></div>
+				<div class="group-5 period-8 spot group-label"><span>5</span></div>
+				<div class="group-6 period-8 spot group-label"><span>6</span></div>
+				<div class="group-7 period-8 spot group-label"><span>7</span></div>
+				<div class="group-8 period-8 spot group-label"><span>8</span></div>
+				<div class="group-9 period-8 spot group-label"><span>9</span></div>
+				<div class="group-10 period-8 spot group-label"><span>10</span></div>
+				<div class="group-11 period-8 spot group-label"><span>11</span></div>
+				<div class="group-12 period-8 spot group-label"><span>12</span></div>
+				<div class="group-13 period-8 spot group-label"><span>13</span></div>
+				<div class="group-14 period-8 spot group-label"><span>14</span></div>
+				<div class="group-15 period-8 spot group-label"><span>15</span></div>
+				<div class="group-16 period-8 spot group-label"><span>16</span></div>
+				<div class="group-17 period-8 spot group-label"><span>17</span></div>
+				<div class="group-18 period-8 spot group-label"><span>18</span></div>
 				<!-- Labels for periods -->
 				<div class="group-0 period-1 spot period-label"><span>1</span></div>
 				<div class="group-0 period-2 spot period-label"><span>2</span></div>
@@ -72,72 +73,110 @@
 				<div class="group-3 period-10 spot break-label"><span>&bull;&bull;</span></div>
 			</div>
 		</div>
-		<!-- Buttons to choose the table mode -->
-		<div id="options">
-			<img src="images/icons/category.png" id="button-category" class="icon active button" />
-			<img src="images/icons/temperature.png" id="button-temperature" class="icon button" />
-			<img src="images/icons/discovery.png" id="button-discovery" class="icon button" />
-			<br />
-		</div>
+		
+		<h1 id="title">Elements</h1>
+
 		<!-- Controls for the current table mode -->
 		<div id="table-controls">
 			<!-- Category mode controls -->
 			<div id="controls-category" class="control-box">
-				<div class="title">Elements <span class="subsection">by Category</span></div>
 				<div class="key left">
-					<div class="category alkali"></div> <span>Alkali metal</span><br />
-					<div class="category alkaline"></div> <span>Alkaline earth metal</span><br />
-					<div class="category transition"></div> <span>Transition metal</span><br />
-					<div class="category posttransition"></div> <span>Post-transition metal</span><br />
-					<div class="category metalloids"></div> <span>Metalloid</span><br />
+					<div class="thumb alkali"></div> <span>Alkali metal</span><br />
+					<div class="thumb alkaline"></div> <span>Alkaline earth metal</span><br />
+					<div class="thumb transition"></div> <span>Transition metal</span><br />
+					<div class="thumb posttransition"></div> <span>Post-transition metal</span><br />
+					<div class="thumb metalloids"></div> <span>Metalloid</span><br />
 				</div>
 				<div class="key right">
-					<div class="category nonmetals"></div> <span>Nonmetal</span><br />
-					<div class="category halogens"></div> <span>Halogen</span><br />
-					<div class="category noble"></div> <span>Noble gas</span><br />
-					<div class="category lanthanides"></div> <span>Lanthanide</span><br />
-					<div class="category actinides"></div> <span>Actinide</span><br />
+					<div class="thumb nonmetals"></div> <span>Nonmetal</span><br />
+					<div class="thumb halogens"></div> <span>Halogen</span><br />
+					<div class="thumb noble"></div> <span>Noble gas</span><br />
+					<div class="thumb lanthanides"></div> <span>Lanthanide</span><br />
+					<div class="thumb actinides"></div> <span>Actinide</span><br />
 				</div>
 			</div>
 			<!-- Temperature mode controls -->
 			<div id="controls-temperature" class="control-box">
-				<div class="title">Elements <span class="subsection">by Temperature</span></div>
-				<div class="key">
-					<div class="state solid"></div> <span>Solid</span><br />
-					<div class="state liquid"></div> <span>Liquid</span><br />
-					<div class="state gas"></div> <span>Gas</span><br />
-					<div class="state unknown"></div> <span>Unknown</span><br />
-				</div>
-				<div class="selector">
-					<div class="button" id="temperature-sub-more">&minus; &minus;</div>
-					<div class="button" id="temperature-sub">&minus;</div>
-					<div id="temperature-display">20 <sup>&deg; C</sup></div>
-					<div class="button" id="temperature-add">&plus;</div>
-					<div class="button" id="temperature-add-more">&plus; &plus;</div>
+				<div class="key left">
+					<div class="thumb unknown"></div> <span>Unknown</span><br />
+					<div class="thumb solid"></div> <span>Solid</span><br />
+					<div class="thumb liquid"></div> <span>Liquid</span><br />
+					<div class="thumb gas"></div> <span>Gas</span><br />
 				</div>
 				<div id="temperature-graph"></div>
 			</div>
 			<!-- Discovery mode controls -->
 			<div id="controls-discovery" class="control-box">
-				<div class="title">Elements <span class="subsection">by Discovered Year</span></div>
-				<div id="new-elements">
-					<div id="new-elements-number">0</div>
-					<div id="new-elements-label">new elements discovered</div>
+				<div id="discovered-elements">
+					<div id="discovered-elements-number">31</div>
+					<div id="discovered-elements-label">/ 118</div>
 				</div>
-				<div class="selector">
-					<div class="button" id="discovery-sub-more">&minus; &minus;</div>
-					<div class="button" id="discovery-sub">&minus;</div>
-					<div id="discovery-year">1800</div>
-					<div class="button" id="discovery-add">&plus;</div>
-					<div class="button" id="discovery-add-more">&plus; &plus;</div>
+				<div class="key left">
+					<div class="thumb undiscovered"></div> <span>Undiscovered</span><br />
+					<div class="thumb discovered"></div> <span>Discovered</span><br />
+					<div class="thumb unrecorded"></div> <span>Unrecorded</span><br />
+					<div class="thumb newlydiscovered"></div> <span>New</span> <span id="discovered-this-year"></span><br />
 				</div>
 				<div id="discovery-graph"></div>
 			</div>
+			<!-- Atomic Radii mode controls -->
+			<div id="controls-atomic-radii" class="control-box">
+				<div id="atomic-radii-graph"></div>
+			</div>
+			<!-- Electronegativity mode controls -->
+			<div id="controls-electronegativity" class="control-box">
+				<div class="key left">
+					<div class="thumb e0p0"></div> <span>0.0 - 1.0</span><br />
+					<div class="thumb e1p0"></div> <span>1.0 - 1.3</span><br />
+					<div class="thumb e1p3"></div> <span>1.3 - 1.6</span><br />
+					<div class="thumb e1p6"></div> <span>1.6 - 1.9</span><br />
+					<div class="thumb e1p9"></div> <span>1.9 - 2.2</span><br />
+				</div>
+				<div class="key right">
+					<div class="thumb e2p2"></div> <span>2.2 - 2.5</span><br />
+					<div class="thumb e2p5"></div> <span>2.5 - 2.8</span><br />
+					<div class="thumb e2p8"></div> <span>2.8 - 3.1</span><br />
+					<div class="thumb e3p1"></div> <span>3.1 +</span><br />
+					<div class="thumb unknown"></div> <span>Unknown</span><br />
+				</div>
+			</div>
+		</div>
+		<div id="options-temperature" class="number-selector table-view-control">
+			<div class="button sub-more">&minus;&minus;</div>
+			<div class="button sub">&minus;</div>
+			<div class="display">20<sup>&deg; C</sup></div>
+			<div class="button add">&plus;</div>
+			<div class="button add-more">&plus;&plus;</div>
+		</div>
+		<div id="options-discovery" class="number-selector table-view-control">
+			<div class="button sub-more">&minus;&minus;</div>
+			<div class="button sub">&minus;</div>
+			<div class="display">1800</div>
+			<div class="button add">&plus;</div>
+			<div class="button add-more">&plus;&plus;</div>
+		</div>
+		<div id="atomic-radii-dropdown" class="dropdown table-view-control">
+			<div>Empirical</div>
+			<div>Calculated</div>
+			<div>van der Waals</div>
+			<div>Covalent <small>(single bond)</small></div>
+			<div>Covalent <small>(triple bond)</small></div>
+		</div>
+		<div id="table-view-dropdown" class="dropdown">
+			<div id="table-view-category" class="active">Category</div>
+			<div id="table-view-temperature">Temperature</div>
+			<div id="table-view-discovery">Discovered Year</div>
+			<div id="table-view-atomic-radii">Atomic Radius</div>
+			<div id="table-view-electronegativity">Electronegativity</div>
+			<div id="table-view-picture">Picture</div>
+		</div>
+		<div id="menu-buttons">
+			<div id="app-menu-button" class="icon"><img src="images/icons/menu.png" alt="Elements menu" /></div>
 		</div>
 	</section>
 
 	<!-- The inspector which shows detailed element information -->
-	<section id="inspector">
+	<section id="inspector" class="menu">
 		<div class="toolbar">
 			<div id="navigator">
 				<div id="previous-element" class="element transition">
@@ -154,102 +193,241 @@
 				</div>
 			</div>
 			<div class="title"></div>
-			<div id="close-inspector" class="icon"><img src="images/icons/close.png" alt="Close" /></div>
+			<div id="inspect-button" class="icon active"><img src="images/icons/inspect.png" alt="Inspect" /></div>
+			<div id="sources-button" class="icon"><img src="images/icons/sources.png" alt="Sources" /></div>
+			<div id="wikipedia-button" class="icon"><img src="images/icons/wikipedia.png" alt="Wikipedia" /></div>
+			<div id="close-inspector" class="icon active"><img src="images/icons/close.png" alt="Close" /></div>
 		</div>
-		<div class="menu"></div>
-		<div class="viewport">
-			<div class="track">
-				<div id="general" data-name="General">
-					<div class="align-fix"></div>
-					<div class="content">
-						<span id="num-of-protons" class="fixed large"></span> <span id="label-protons-and-electrons">protons &amp; electrons</span><br />
-						<span id="num-of-neutrons" class="fixed large"></span> neutrons<br />
-						<span id="num-of-electron-shells" class="fixed large"></span> <span id="label-electron-shells">electron shells</span><br /><br />
-						category<br />
-						<span id="category" class="large indent"></span><br /><br />
-						crystal structure<br />
-						<div id="crystal-structure" class="large indent"></div>
+		<div id="inspect-view" class="page">
+			<div class="side"></div>
+			<div class="viewport">
+				<div class="track">
+					<div id="general" data-name="General">
+						<div class="content">
+							<span id="num-of-protons" class="fixed large"></span> <span id="label-protons-and-electrons">protons &amp; electrons</span><br />
+							<span id="num-of-neutrons" class="fixed large"></span> neutrons<br />
+							<span id="num-of-electron-shells" class="fixed large"></span> <span id="label-electron-shells">electron shells</span><br />
+							<br />
+							category<br />
+							<span id="category" class="large indent"></span><br />
+							<img src="images/elements/chromium.jpg" alt="An image of the element." id="picture" />
+						</div>
 					</div>
-				</div>
-				<div id="physical" data-name="Physical">
-					<div class="align-fix"></div>
-					<div class="content">
-						<span id="state-at-rt" class="large"></span> at room temperature<br />
-						melts at <span id="melting-point" class="large"></span><br />
-						boils at <span id="boiling-point" class="large"></span><br /><br />
-						density<br />
-						<span id="density" class="indent large"></span> g/mL<br /><br />
-						electron configuration<br />
-						<div id="electron-configuration" class="large indent"></div>
+					<div id="physical" data-name="Physical">
+						<div class="content">
+							<span id="state-at-rt" class="large"></span> at room temperature<br />
+							melts at <span id="melting-point" class="large"></span><br />
+							boils at <span id="boiling-point" class="large"></span><br /><br />
+							density<br />
+							<span id="density" class="indent large"></span> g/mL<br /><br />
+							electron configuration<br />
+							<div id="electron-configuration" class="large indent"></div>
+						</div>
 					</div>
-				</div>
-				<div id="atomic" data-name="Atomic">
-					<div class="align-fix"></div>
-					<div class="content">
-						atomic weight<br />
-						<span id="atomic-weight" class="indent large"></span><br />
-						electronegativity (Pauling)<br />
-						<span id="electronegativity" class="indent large"></span><br />
-						atomic radius<br />
-						<span id="atomic-radius" class="indent large"></span><br />
-						covalent radius<br />
-						<span id="covalent-radius" class="indent large"></span><br />
-						ionic radius<br />
-						<span id="ionic-radius" class="indent large"></span><br />
+					<div id="atomic" data-name="Atomic">
+						<div class="content">
+							atomic weight<br />
+							<span id="atomic-weight" class="indent large"></span><br />
+							electronegativity (Pauling)<br />
+							<span id="electronegativity" class="indent large"></span><br />
+							atomic radius<br />
+							<span id="atomic-radius" class="indent large"></span><br />
+							covalent radius<br />
+							<span id="covalent-radius" class="indent large"></span><br />
+							ionic radius<br />
+							<span id="ionic-radius" class="indent large"></span><br />
+						</div>
 					</div>
-				</div>
-				<div id="miscellanea" data-name="Miscellanea">
-					<div class="align-fix"></div>
-					<div class="content">
-						year discovered<br />
-						<div id="year-discovered" class="indent large"></div>
-						uses<br />
-						<div id="uses" class="indent large"></div>
-						hydrides<br />
-						<div id="hydrides" class="indent large"></div>
-						oxides<br />
-						<div id="oxides" class="indent large"></div>
-						chlorides<br />
-						<div id="chlorides" class="indent large"></div>
+					<div id="thermal" data-name="Thermal">
+						<div class="content">
+							specific heat (J/g K)<br />
+							<span id="specific-heat" class="indent large">14.304</span><br />
+							heat of fusion (kJ/mol)<br />
+							<span id="heat-of-fusion" class="indent large">0.05868</span><br />
+							heat of vaporization (kJ/mol)<br />
+							<span id="heat-of-vaporization" class="indent large">0.44936</span><br />
+							thermal conductivity (W/(m K))<br />
+							<span id="thermal-conductivity" class="indent large">0.1815</span><br />
+						</div>
 					</div>
-				</div>
-				<div id="reactions" data-name="Reactions">
-					<div class="align-fix"></div>
-					<div class="content">
-						reaction with air<br />
-						<div id="react-air" class="large indent"></div>
-						reaction with water<br />
-						<div id="react-water" class="large indent"></div>
-						reaction with 6M HCl<br />
-						<div id="react-HCl" class="large indent"></div>
-						reaction with 15M HNO<sub>3</sub><br />
-						<div id="react-HNO3" class="large indent"></div>
-						reaction with 6M NaOH<br />
-						<div id="react-NaOH" class="large indent"></div>
+					<div id="discovery-info" data-name="Discovery">
+						<div class="content">
+							discovered by<br />
+							<div id="discovered-by" class="indent"></div>
+							year <br />
+							<div id="year-discovered" class="indent large"></div>
+							location<br />
+							<div id="country-discovered" class="indent large">United Kingdom</div>
+						</div>
 					</div>
-				</div>
-				<div id="abundance" data-name="Abundance">
-					<div class="align-fix"></div>
-					<div class="content">
-						in Earth's crust<br />
-						<span id="in-earths-crust" class="indent large"></span> mg/kg<br />
-						in seawater<br />
-						<span id="in-seawater" class="indent large"></span> mg/L<br />
-						in humans<br />
-						<span id="in-humans" class="indent large"></span><br />
-						source<br />
-						<div id="source" class="indent large"></div>
+					<div id="miscellanea" data-name="Miscellanea">
+						<div class="content">
+							crystal structure<br />
+							<div id="crystal-structure" class="large indent"></div>
+							uses<br />
+							<div id="uses" class="indent large"></div>
+							<div id="hydrides-container">
+								hydrides
+								<div id="hydrides"></div>
+							</div>
+							<div id="oxides-container">
+								oxides
+								<div id="oxides"></div>
+							</div>
+							<div id="chlorides-container">
+								chlorides
+								<div id="chlorides"></div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div id="picture" data-name="Picture">
-					<div class="align-fix"></div>
-					<div id="picture-frame">
-						<img src="images/elements/chromium.jpg" alt="An image of the element." id="picture-img" />
-						<div id="picture-caption">Chromium</div>
+					<div id="abundance" data-name="Abundance">
+						<div class="content">
+							in Earth's crust<br />
+							<span id="in-earths-crust" class="indent large"></span> mg/kg<br />
+							in seawater <span id="in-seawater" class="indent large"></span> mg/L
+							<div id="abundance2-source-dropdown" class="dropdown">
+								<div>CRC Handbook</div>
+								<div>Kaye & Laby</div>
+							</div>
+							<br />
+							in humans <span id="in-humans" class="indent large"></span>
+							<div id="abundance-source-dropdown" class="dropdown">
+								<div>CRC Handbook</div>
+								<div>Kaye & Laby</div>
+							</div>
+							<br />
+							source<br />
+							<div id="source" class="indent large"></div>
+						</div>
 					</div>
+					<div id="bohr-model" data-name="Bohr Model"></div>
 				</div>
-				<div id="bohr-model" data-name="Bohr Model">
-					<div class="align-fix"></div>
+			</div>
+		</div>
+		<div id="sources-view" class="page">
+
+			<!-- Sources for Abundance -->
+			<div id="sources-abundance">
+				<h2>Sources for Abundance</h2>
+				<h3>CRC Handbook</h3>
+				<div>
+					From these sources in an online version of David R. Lide (ed.), <em>CRC Handbook of Chemistry and Physics, 85th Edition</em>. CRC Press. Boca Raton, Florida (2005). Section 14, Geophysics, Astronomy, and Acoustics; Abundance of Elements in the Earth's Crust and in the Sea:
+					<ul>
+						<li>R.S. Carmichael (ed.), <em>CRC Practical Handbook of Physical Properties of Rocks and Minerals</em>, CRC Press, Boca Raton, FL, (1989).</li>
+						<li>I. Bodek et al., <em>Environmental Inorganic Chemistry</em>, Pergamon Press, New York, (1988).</li>
+						<li>A.B. Ronov, A.A. Yaroshevsky, <em>Earth's Crust Geochemistry</em>, in Encyclopedia of Geochemistry and Environmental Sciences, R.W. Fairbridge (ed.), Van Nostrand, New York, (1969).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Estimated abundance of the elements in the continental crust (C1) and in seawater near the surface (W1). The median values of reported measurements are given. Concentrations of the less abundant elements may vary with location by several orders of magnitude.
+				</div>
+
+				<h3>Kaye & Laby</h3>
+				<div>National Physical Laboratory, Kaye and Laby <em>Tables of Physical & Chemical Constants</em> (2005). Section 3.1.3, Abundances of the elements, B.E.J. Pagel</div>
+				<div class="indent">
+					Abundances in sea water (W2) and in crustal rocks (C2) from:
+					<ul>
+						<li>K.K. Turekian (1970) in <em>McGraw-Hill Encyclopedia of Science and Technology</em>, <strong>4</strong>, 627.</li>
+					</ul>
+				</div>
+				<div class="indent">
+					For the sun (S1) and the solar system (Y1) from:
+					<ul>
+						<li>N. Grevesse, E. Anders, J. Waddington (ed.) in <em>Cosmic Abundances of Matter</em>, Amer. Inst. Phys., New York, p. 1. (1988).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Except solar iron abundance from:
+					<ul>
+						<li>H. Holweger, A. Bard, A. Kock, M. Kock, Astron. Astrophys., <strong>249</strong>, 545. (1991).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Accuracy of the solar abundances varies between &plusmn;10% and a factor of two, values more uncertain than that are marked with "about". The solar system abundances are mainly derived from carbonaceous chondrite meteorites and are assumed generally accurate to &plusmn;10% or better. Solar system abundances based on other sources are marked with asterisks (*).
+				</div>
+
+				<h3>Greenwood</h3>
+				<div>A. Earnshaw, N. Greenwood, <em>Chemistry of the Elements</em>, 2nd edition, Butterworth-Heinemann, (1997). ISBN 0-7506-3365-4 Appendix 4, Abundance of Elements in Crustal Rocks.</div>
+				<div class="indent">
+					From this source with some modifications and additions of later data:
+					<ul>
+						<li>W.S. Fyfe, <em>Geochemistry</em>, Oxford University Press, (1974).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Further referring to:
+					<ul>
+						<li>C.K. Jorgensen, <em>Comments Astrophys</em>. 17, 49–101 (1993).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Values are subject to various geological assumptions but assumed acceptable as an indication of elemental abundance in crustal rocks (C3).
+				</div>
+
+				<h3>Ahrens</h3>
+				<div>Thomas J. Ahrens (ed.), <em>Global Earth Physics : A Handbook of Physical Constants</em>, American Geophysical Union (1995). ISBN 0-87590-851-9 Composition of the Solar System, Planets, Meteorites, and Major Terrestrial Reservoirs, Horton E. Newsom. Tables 1, 14, 15.</div>
+				<div class="indent">
+					Bulk continental crust (C4) and upper continental crust (U1) from:
+					<ul>
+						<li>S.R. Taylor, S.M. McLennan, <em>The continental crust: Its composition and evolution</em>, Blackwell Sci. Publ., Oxford, 330 pp. (1985).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Upper continental crust (U2) from:
+					<ul>
+						<li>D.M. Shaw, J. Dostal, R.R. Keays, <em>Additional estimates of continental surface Precambrian shield composition in Canada</em>, Geochim. Cosmochim. Acta, 40, 73–83, (1976).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Bulk continental crust (C5) from:
+					<ul>
+						<li>H. Wänke, G. Dreibus, E. Jagoutz, <em>Mantle chemistry and accretion history of the Earth</em>, in Archean Geochemistry, A. Kröner, G.N. Hanson, A.M. Goodwin (eds.), pp. l-24, Springer-Verlag, Berlin, (1984).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Bulk continental crust (C6) from:
+					<ul>
+						<li>B.L. Weaver, J. Tamey, <em>Major and trace element composition of the continental lithosphere</em>, in Physics and Chemistry of the Earth, 15, H.N. Pollack, V.R. Murthy (eds.) pp. 39–68, Pergamon, Oxford, (1984).</li>
+					</ul>
+				</div>
+				<div class="indent">
+					Solar system (Y2) from:
+					<ul>
+						<li>E. Anders, N. Grevesse, <em>Abundances of the elements: Meteoritic and solar</em>, Geochim. Cosmochim. Acta, 53, 197–214, (1989). doi:10.1016/0016-7037(89)90286-X</li>
+					</ul>
+				</div>
+			</div>
+			<!-- End sources for Abundance -->
+
+		</div>
+		<div id="wikipedia-view" class="page">
+			<iframe id="wikipedia-portal"></iframe>
+		</div>
+	</section>
+
+	<section id="app-menu" class="menu">
+		<div class="toolbar">
+			<div class="title"></div>
+			<div id="close-app-menu" class="icon"><img src="images/icons/close.png" alt="Close" /></div>
+		</div>
+		<div class="page">
+			<div class="side"></div>
+			<div class="viewport">
+				<div class="track">
+					<div id="about" data-name="About">
+						<div class="content">
+							<h1>About Elements</h1>
+							Lorem ipsum dolor sit amet consectitur adipscing elit
+						</div>
+					</div>
+					<div id="exit" data-name="Exit">
+						<div class="content">
+							Are you sure you want to exit Elements?
+							<div>
+								<button>Yes</button> <button>No</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

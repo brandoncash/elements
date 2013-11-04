@@ -12,16 +12,24 @@ var BohrModel = {
 	// Create a new canvas to work with.
 	createCanvas: function()
 	{
-		this.width = $('#bohr-model').width() * 0.9;
-		this.height = $('#bohr-model').height() * 0.8;
+		this.width = Math.floor($('#bohr-model').width() * 0.9);
+		this.height = Math.floor($('#bohr-model').height() * 0.8);
 		
 		this.centerX = this.width / 2;
 		this.centerY = this.height / 2;
-		this.distanceBetweenShells = ((this.height / 2) - (7 * 2) - 5) / 7; // FIXME: crazy maths
+		this.distanceBetweenShells = this.height * 0.06;
 		
 		this.canvas = $('<canvas />');
-		this.canvas.attr('width', this.width);
-		this.canvas.attr('height', this.height);
+		var ctx = this.canvas.get(0).getContext('2d');
+		ctx.save();
+
+		this.canvas.attr('width', this.width * 2);
+		this.canvas.attr('height', this.height * 2);
+		this.canvas.css(
+		{
+			width: this.width + 'px',
+			height: this.height + 'px'
+		});
 		$('#bohr-model').append(this.canvas);
 	},
 	
@@ -42,31 +50,27 @@ var BohrModel = {
 		var numOfElectronShells = this.electrons.length - 1;
 		var centerX = this.centerX;
 		var centerY = this.centerY;
-		var electronSize = this.distanceBetweenShells * 0.65;
+		var electronSize = this.distanceBetweenShells * 0.6;
 		
 		var ctx = this.canvas.get(0).getContext('2d');
 		ctx.save();
+		ctx.scale(2, 2);
 		ctx.clearRect(0, 0, this.width, this.height);
 		
-		ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-		ctx.shadowBlur = 1;
-		ctx.shadowOffsetX = 0;
-		ctx.shadowOffsetY = 1;
-
 		// Draw the nucleus
 		ctx.beginPath();
-		ctx.fillStyle = '#FF3D46';
-		ctx.arc(centerX, centerY, electronSize, 0, Math.PI * 2, true);
+		ctx.fillStyle = '#a257fa';
+		ctx.arc(centerX, centerY, electronSize * 1.5, 0, Math.PI * 2, true);
 		ctx.fill();
 
 		for (var i = 0; i <= numOfElectronShells; i++)
 		{ // Draw each electron shell
-			var distanceFromCenter = (this.distanceBetweenShells * (i + 1)) + 10;
+			var distanceFromCenter = (this.distanceBetweenShells * (i + 1)) + electronSize;
 			
 			// The electron shell
 			ctx.beginPath();
 			ctx.lineWidth = electronSize * 0.15;
-			ctx.strokeStyle = '#61666d';
+			ctx.strokeStyle = '#18c6f8';
 			ctx.arc(centerX, centerY, distanceFromCenter, 0, Math.PI*2, true);
 			ctx.stroke();
 
@@ -79,8 +83,8 @@ var BohrModel = {
 				var y = Math.sin(angle * Math.PI / 180) * distanceFromCenter;
 				
 				ctx.beginPath();
-				ctx.arc(centerX + x, centerY + y, electronSize / 2, 0, Math.PI * 2, true);
-				ctx.fillStyle = '#67f176';
+				ctx.arc(centerX + x, centerY + y, electronSize * 0.4, 0, Math.PI * 2, true);
+				ctx.fillStyle = '#d1347f';
 				ctx.fill();
 			}
 		}
