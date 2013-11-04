@@ -1,0 +1,32 @@
+TODO:
+
+Make back button go to table view if not already there
+
+switch to ftscroller?
+
+make photo/radius/etc go to their respective pages in the inspector
+
+update other graphs to use e.originalEvent.touches[0].clientX
+	-- does this update on move?
+
+there are a few px where the selected element in atomic radii view doesn't line up with the graph's selected element
+
+hydrides/oxides/chlorides
+	- move line breaks into generated markup
+	- same for "non stoich"
+	- some (42-molybdenum) have things like [x=2-6]
+		- don't <sub> the numbers
+		- make it <small>
+		- not new line
+
+
+
+
+Special thanks
+	- Chapps for vector icons
+
+"Whether you're using it on your tablet in the classroom or your mobile phone on the go, Elements lets you quickly access tons of information about the periodic elements."
+
+
+Sources:
+	Abundance: http://en.wikipedia.org/wiki/Abundances_of_the_elements_(data_page)

@@ -1,0 +1,92 @@
+section.menu {	
+}
+
+section.menu .toolbar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 3.5em;
+	text-align: right;
+	background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+}
+section.menu .toolbar > div {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+section.menu .toolbar .icon {
+	width: 5%;
+	padding: 0 1em 0 0;
+	line-height: 1.5em;
+}
+section.menu .toolbar .icon img {
+	height: 100%;
+}
+
+section.menu .page {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 3.5em;
+	overflow: hidden;
+	display: none;
+}
+section.menu .page.active {
+	display: block;
+}
+
+section.menu .side {
+	position: absolute;
+	bottom: 1em;
+	left: 0;
+	width: 11.5em;
+}
+section.menu .side .tab {
+	padding: 0.1em 1em;
+	font-size: 1.3em;
+	text-align: right;
+	text-transform: lowercase;
+	color: #257fff;
+	-webkit-transition: padding 0.5s ease-in-out;
+}
+section.menu .side .tab:hover {
+	color: #a257fa;
+	padding-right: 0.75em;
+	-webkit-transition-duration: 0.2s;
+	cursor: pointer;
+}
+section.menu .side .tab.active,
+section.menu .side .tab:active {
+	color: #d1347f;
+	padding-right: 0.5em;
+}
+
+section.menu .viewport {
+	position: absolute;
+	top: 0;
+	left: 12em;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+section.menu .viewport .track {
+}
+section.menu .viewport .track > div {
+	position: relative;
+	height: 19em;
+}
+section.menu .viewport .track > div:before {
+	display: inline-block;
+	width: 0px;
+	height: 19em;
+	vertical-align: middle;
+	content: '';
+}
+section.menu .viewport .content {
+	display: inline-block;
+	width: 95%;
+	vertical-align: middle;
+	line-height: 1.1em;
+}
