@@ -104,10 +104,15 @@ section.menu .title {
 	-webkit-backface-visibility: hidden;
 	box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.4);
 	vertical-align: middle;
-	height: 11em;
+	height: 9em;
 	position: absolute;
-	left: 13em;
+	left: 15em;
 	top: 2em;
+}
+
+#abundance .dropdown {
+	/* FIXME: make dropdowns look decent and add them back in */
+	display: none;
 }
 
 #hydrides-container,
